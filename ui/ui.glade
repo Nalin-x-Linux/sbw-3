@@ -11,8 +11,10 @@
     <property name="can_focus">False</property>
     <property name="stock">gtk-missing-image</property>
   </object>
+  <object class="GtkTextBuffer" id="textbuffer"/>
   <object class="GtkWindow" id="window">
     <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Sharada-Braille-Writer</property>
     <child>
       <object class="GtkBox" id="box">
         <property name="visible">True</property>
@@ -93,7 +95,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkMenuItem" id="menuitem2">
+              <object class="GtkMenuItem" id="menuitem_Language">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">_Language</property>
@@ -292,7 +294,10 @@
             <child>
               <object class="GtkTextView" id="textview">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can_focus">True</property>
+                <property name="editable">False</property>
+                <signal name="key-release-event" handler="key_released" swapped="no"/>
+                <signal name="key-press-event" handler="key_pressed" swapped="no"/>
               </object>
             </child>
           </object>
