@@ -34,11 +34,11 @@ class writer():
 		self.textview = self.guibuilder.get_object("textview")
 		self.label = self.guibuilder.get_object("label")
 		self.language_menu = self.guibuilder.get_object("menuitem_Language")
-		self.textbuffer = self.guibuilder.get_object("textbuffer")
 		
 		
-		#self.guibuilder.connect_signals(self);
-		
+		self.textbuffer = self.textview.get_buffer();
+		self.guibuilder.connect_signals(self);
+		self.textbuffer.insert_at_cursor("This is a sample of text");
 		
 		# braille letters
 		self.pressed_keys = "";
@@ -60,25 +60,57 @@ class writer():
 		self.language_menu.set_submenu(menu_languages);
 		
 		
+		#Load the english map by default
+		self.load_map("english")
 		
-		#Braille Iter
+		#Braille Iter's
 		self.braille_iter = 0;
+		self.braille_letter_map_pos = 0;
 		
 		#self.window.maximize();
 		self.textview.show_all();
 		self.window.show_all();
 		Gtk.main();
-		self.load_map("english");
 		
+	def order_pressed_keys(self,pressed_keys):
+		ordered = ""
+		for key in ["f","d","s","j","k","l"]:
+			if key in pressed_keys:
+				ordered += key;
+		return ordered;
+			
 		
 	def key_pressed(self,widget,event):
-		self.pressed_keys  += self.keycode_map[event.hardware_keycode];
-		self.braille_iter = len(self.pressed_keys); 
+		if event.hardware_keycode in self.keycode_map.keys():
+			self.pressed_keys  += self.keycode_map[event.hardware_keycode];
+			self.braille_iter = len(self.pressed_keys);
+		else:
+			self.braille_iter = 1; 
 
-	def key_released(self,widget,data=None):
+	def key_released(self,widget,event):
 		if (self.braille_iter == 1):
-			print ("Finding %s"%self.pressed_keys);
+			if self.pressed_keys != "":
+				ordered_pressed_keys = self.order_pressed_keys(self.pressed_keys);
+				
+				if ordered_pressed_keys in self.contractions_dict.keys():
+					self.braille_letter_map_pos = self.contractions_dict[ordered_pressed_keys];
+					print (self.braille_letter_map_pos);
+				else:
+					value = self.map[ordered_pressed_keys][self.braille_letter_map_pos];
+					self.textbuffer.insert_at_cursor(value);
+					print (self.braille_letter_map_pos)
+					self.braille_letter_map_pos = 1;
+			else:
+				if (event.string == " "):
+					self.braille_letter_map_pos = 0;
+					self.textbuffer.insert_at_cursor(event.string);
+				if (event.string == ";"):
+					self.braille_letter_map_pos = 2;
+					
+				
+			
 			self.pressed_keys = "";
+		
 		elif (self.braille_iter < 0):
 			self.braille_iter = 1;
 		self.braille_iter -= 1;
@@ -91,21 +123,36 @@ class writer():
 	def load_map(self,language):
 		print ("loading Map for language : %s" %language)
 		self.map = {}
+		self.abbreviations = {}
 		submap_number = 1;
 		self.append_sub_map(language,"beginning.txt",submap_number);
 		submap_number = 2;
 		self.append_sub_map(language,"middle.txt",submap_number);
+		submap_number = 3;
+		self.append_sub_map(language,"punctuations.txt",submap_number);
 		
+		#Contraction dict 
+		self.contractions_dict = {};
+		
+		#load each contractions to map
 		for text_file in os.listdir("%s/data/%s/"%(data_dir,language)):
-			if text_file not in ["beginning.txt","middle.txt"]:
-				submap_number += 1;
-				self.append_sub_map(language,text_file,submap_number);		
+			if text_file not in ["beginning.txt","middle.txt","abbreviations.txt","abbreviations_default.txt","punctuations.txt"]:
+				if "~" not in text_file:
+					submap_number += 1;
+					self.append_sub_map(language,text_file,submap_number);
+					self.contractions_dict[text_file[:-4]] = submap_number-1;
 		
+		
+		#Load abbreviations if exist
+		try:
+			for line in open("%s/data/%s/abbreviations.txt"%(data_dir,language),"r"):
+				self.abbreviations[line.split("  ")[0]] = line.split("  ")[1][:-1]
+		except FileNotFoundError:
+			pass
 
 	
 	def append_sub_map(self,language,filename,submap_number):
-		print("Loading sub map file for : %s with sn : %d " % (filename,submap_number))
-		
+		print("Loading sub map file for : %s with sn : %d " % (filename,submap_number))	
 		for line in open("%s/data/%s/%s"%(data_dir,language,filename),"r"):
 			if (line.split(" ")[0]) in self.map.keys():
 				self.map[line.split(" ")[0]].append(line.split(" ")[1][:-1])
