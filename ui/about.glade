@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkAboutDialog" id="aboutdialog">
+    <property name="can_focus">False</property>
+    <property name="border_width">5</property>
+    <property name="title" translatable="yes">About Sharada-Braille-Writer</property>
+    <property name="icon">Icon.png</property>
+    <property name="type_hint">dialog</property>
+    <property name="program_name">Sharada-Braille-Writer</property>
+    <property name="version">2.0</property>
+    <property name="copyright" translatable="yes">Copyright © 2012-2013 Nalin.x.Linux</property>
+    <property name="comments" translatable="yes">Sharada braille writer is a six key approach to producing print materials.
+ letters f, d, s, j, k, l represent 1 2 3 4 5 6 of the braille dots respectively.
+ By pressing f and s together will produce letter k and like.</property>
+    <property name="website">http://sourceforge.net/projects/sbrw/</property>
+    <property name="website_label" translatable="yes">Visit S-B-W Home page</property>
+    <property name="license" translatable="yes">GPL3</property>
+    <property name="authors">Nalin.x.Linux
+Anilkumar KV</property>
+    <property name="documenters">Shalini Sathyaseelan
+Sathyaseelan</property>
+    <property name="artists">Nahar
+Ajayakumar Payyanur
+Manuel eduardo cortéz vallejo
+Jones
+Jose TVM
+Agesh Kumar
+Vinod-Kollam
+Hakkeem IT@School  </property>
+    <property name="logo">Icon.png</property>
+    <property name="wrap_license">True</property>
+    <property name="license_type">gpl-3-0</property>
+    <signal name="response" handler="about_close" swapped="no"/>
+    <child internal-child="vbox">
+      <object class="GtkBox" id="aboutdialog-vbox">
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox" id="aboutdialog-action_area1">
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Dedicated to my mother Sharada</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

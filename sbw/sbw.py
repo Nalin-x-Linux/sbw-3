@@ -307,6 +307,15 @@ class writer():
 		self.textbuffer.place_cursor(start)
 		self.textbuffer.set_modified(False)
 
+	def about(self,wedget,data=None):
+		guibuilder_about = Gtk.Builder()
+		guibuilder_about.add_from_file("%s/ui/about.glade" % (data_dir))
+		window_about = guibuilder_about.get_object("aboutdialog")
+		guibuilder_about.connect_signals({"about_close" : self.about_close })		
+		window_about.show()
+	
+	def about_close(self,wedget,data=None):
+		wedget.destroy()
 		
 if __name__ == "__main__":
 	writer()
