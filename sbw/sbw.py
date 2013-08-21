@@ -136,7 +136,7 @@ class writer():
 		
 		#load each contractions to map
 		for text_file in os.listdir("%s/data/%s/"%(data_dir,language)):
-			if text_file not in ["beginning.txt","middle.txt","abbreviations.txt","abbreviations_default.txt","punctuations.txt"]:
+			if text_file not in ["beginning.txt","middle.txt","abbreviations.txt","abbreviations_default.txt","punctuations.txt","help.txt"]:
 				if "~" not in text_file:
 					submap_number += 1;
 					self.append_sub_map(language,text_file,submap_number);
