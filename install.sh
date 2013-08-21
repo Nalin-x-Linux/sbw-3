@@ -23,9 +23,9 @@ rm -rf /usr/share/pyshared/sbw
 echo "Removing existing Data...............Ok"
 fi
 
-if [ -d /usr/lib/python2.7/dist-packages/sbw ];
+if [ -d /usr/lib/python3/dist-packages/sbw ];
 then 
-rm -rf /usr/lib/python2.7/dist-packages/sbw
+rm -rf /usr/lib/python3/dist-packages/sbw
 echo "Removing existing source.............Ok"
 fi
 
@@ -50,14 +50,14 @@ cp -r data /usr/share/pyshared/sbw/
 echo "Copying ui xml's ....................OK"
 cp -r ui /usr/share/pyshared/sbw/
 echo "Copying source files ................OK"
-cp -r sbw /usr/lib/python2.7/dist-packages/
+cp -r sbw /usr/lib/python3/dist-packages/
 echo "Copying starter .....................OK"
 cp sharada-braille-writer /usr/bin/
 echo "Copying icon ........................OK"
 cp sharada-braille-writer.desktop /usr/share/applications/
 
 ldconfig
-#touch /usr/lib/python2.7/dist-packages/sbw/__init__.py
-chmod 555 /usr/share/pyshared/sbw/data/*
-chmod 777 /usr/share/pyshared/sbw/data/abbreviations.txt
+touch /usr/lib/python3/dist-packages/sbw/__init__.py
+#chmod 555 /usr/share/pyshared/sbw/data/*
+#chmod 777 /usr/share/pyshared/sbw/data/abbreviations.txt
 echo "============ Compleated==========================================="
