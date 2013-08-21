@@ -101,11 +101,38 @@ class writer():
 					print (self.braille_letter_map_pos)
 					self.braille_letter_map_pos = 1;
 			else:
-				if (event.string == " "):
+				#Space or enter
+				if (event.hardware_keycode in [65,36]):
 					self.braille_letter_map_pos = 0;
 					self.textbuffer.insert_at_cursor(event.string);
-				if (event.string == ";"):
+				
+				# ; for punctuations
+				elif (event.hardware_keycode == 47):
 					self.braille_letter_map_pos = 2;
+				
+				#Backspace delete or h
+				elif (event.hardware_keycode in [22,119,43]):
+					if (self.textbuffer.get_has_selection()):
+						self.textbuffer.delete_selection(True,True)
+					else:
+						iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());
+						if event.hardware_keycode == 119:
+							iter.forward_char()
+						self.textbuffer.backspace(iter,True,True);
+				
+				# substitute abbriviation 
+				elif (event.hardware_keycode == 38):
+					iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());
+					start = iter.copy();
+					start.backward_word_start()
+					last_word = self.textbuffer.get_text(start,iter,False)
+					if (last_word in self.abbreviations.keys()):
+						self.textbuffer.delete(start,iter);
+						self.textbuffer.insert_at_cursor(self.abbreviations[last_word]);
+						
+				
+				else:
+					print (event.hardware_keycode);
 					
 				
 			
