@@ -169,6 +169,28 @@ class writer():
 			if len(self.map[key]) < submap_number:
 				self.map[key].append(" ");
 				 
+
+	def quit(self,wedget,data=None):
+		if self.textbuffer.get_modified() == True:
+			dialog =  Gtk.Dialog(None,self.window,1,
+			("Close without saving",Gtk.ResponseType.YES,"Save", Gtk.ResponseType.NO,"Cancel", Gtk.ResponseType.CANCEL))
+			
+			label = Gtk.Label("Close without saving ?.")
+			box = dialog.get_content_area();
+			box.add(label)
+			dialog.show_all()
+			
+			response = dialog.run()
+			dialog.destroy()
+			if response == Gtk.ResponseType.YES:
+				Gtk.main_quit()			
+			elif response == Gtk.ResponseType.NO:
+				if (self.on_save_activate(self)):
+					Gtk.main_quit()
+			else:
+				pass
+		else:
+			Gtk.main_quit()
 				
 			
 		
