@@ -176,6 +176,11 @@ class writer():
 				self.abbreviations[line.split("  ")[0]] = line.split("  ")[1][:-1]
 		except FileNotFoundError:
 			pass
+		
+		try:
+			self.readme_text = open("%s/data/%s/help.txt"%(data_dir,language),"r").read()
+		except FileNotFoundError:
+			pass
 
 	
 	def append_sub_map(self,language,filename,submap_number):
@@ -197,6 +202,83 @@ class writer():
 				self.map[key].append(" ");
 				 
 
+	def new(self,wedget,data=None):
+		if (self.textbuffer.get_modified() == True):
+			dialog =  Gtk.Dialog("Start new without saving ?",self.window,True,
+			("Save", Gtk.ResponseType.ACCEPT, "Cancel" ,Gtk.ResponseType.CLOSE, "Start-New!", Gtk.ResponseType.REJECT))                           						
+
+			label = Gtk.Label("Start new without saving ?")
+			box = dialog.get_content_area();
+			box.add(label)
+			dialog.show_all()
+
+			response = dialog.run()
+			dialog.destroy()				
+			
+			if response == Gtk.ResponseType.REJECT:
+				start, end = self.textbuffer.get_bounds()
+				self.textbuffer.delete(start, end)
+				del self.save_file_name													
+			elif response == Gtk.ResponseType.ACCEPT:
+				if (self.on_save_activate(self)):
+					start, end = self.textbuffer.get_bounds()
+					self.textbuffer.delete(start, end)
+					del self.save_file_name
+		else:
+			start, end = self.textbuffer.get_bounds()
+			self.textbuffer.delete(start, end)
+
+	def open(self,wedget,data=None):
+		open_file = Gtk.FileChooserDialog("Select the file to open",None,Gtk.FileChooserAction.OPEN,buttons=(Gtk.STOCK_OPEN,Gtk.ResponseType.OK))
+		open_file.set_current_folder("%s"%(os.environ['HOME']))
+		response = open_file.run()
+		if response == Gtk.ResponseType.OK:
+			to_read = open("%s" % (open_file.get_filename()))
+			to_open = to_read.read()
+			try:
+				self.textbuffer.set_text(to_open)
+			except FileNotFoundError:
+					pass
+			else:
+				self.save_file_name = open_file.get_filename()
+				self.textbuffer.place_cursor(self.textbuffer.get_end_iter())
+		open_file.destroy()
+
+
+	def save(self,wedget,data=None):
+		start,end = self.textbuffer.get_bounds()
+		text = self.textbuffer.get_text(start,end,False)
+		try:
+			self.save_file_name
+		except AttributeError:
+			save_file = Gtk.FileChooserDialog("Save ",None,Gtk.FileChooserAction.SAVE,
+		                    buttons=(Gtk.STOCK_SAVE,Gtk.ResponseType.OK))    
+			save_file.set_current_folder("%s"%(os.environ['HOME']))
+			save_file.set_current_name(text[0:10]);
+			save_file.set_do_overwrite_confirmation(True);
+			filter = Gtk.FileFilter()
+			filter.add_pattern("*.txt")
+			filter.add_pattern("*.text")
+			save_file.add_filter(filter)
+			response = save_file.run()
+			if response == Gtk.ResponseType.OK:
+				self.save_file_name = "%s"%(save_file.get_filename())
+				open("%s" %(self.save_file_name),'w').write(text)
+				self.textbuffer.set_modified(False)	
+				save_file.destroy()
+				return True
+			else:
+				save_file.destroy()
+				return False
+		else:
+			open("%s" %(self.save_file_name),'w').write(text)	
+			self.textbuffer.set_modified(False)
+			return True		
+
+	def save_as(self,wedget,data=None):
+		del self.save_file_name
+		self.save(self);
+		
 	def quit(self,wedget,data=None):
 		if self.textbuffer.get_modified() == True:
 			dialog =  Gtk.Dialog(None,self.window,1,
@@ -218,10 +300,12 @@ class writer():
 				pass
 		else:
 			Gtk.main_quit()
-				
-			
-		
-		
+
+	def readme(self,wedget,data=None):
+		self.textbuffer.set_text(self.readme_text)
+		start = self.textbuffer.get_start_iter()
+		self.textbuffer.place_cursor(start)
+		self.textbuffer.set_modified(False)
 
 		
 if __name__ == "__main__":
