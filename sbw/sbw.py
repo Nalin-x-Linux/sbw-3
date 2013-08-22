@@ -18,12 +18,19 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ###########################################################################
 import os
+import configparser
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import Gio
 from gi.repository import GLib
+from gi.repository import Pango
 
+#Where the data is located
 data_dir = "/usr/share/pyshared/sbw";
+
+#Changing directory to Home folder
+os.chdir(os.environ['HOME'])
+
 
 class writer():
 	def __init__ (self):
@@ -66,6 +73,34 @@ class writer():
 		#Braille Iter's
 		self.braille_iter = 0;
 		self.braille_letter_map_pos = 0;
+		
+		#User Preferences
+		config = configparser.ConfigParser()
+		if config.read('.sbw.cfg') != []:
+			self.font = config.get('cfg','font')
+			self.font_color = config.get('cfg','font_color')
+			self.background_color = config.get('cfg','background_color')
+			self.line_limit = int(config.get('cfg','line_limit'))
+			self.simple_mode = int(config.get('cfg','simple_mode'))
+		else:
+			self.font = 'Georgia 14'
+			self.font_color = '#fff'
+			self.background_color = '#000'		
+			self.line_limit =  100
+			self.simple_mode = 0
+		
+		pangoFont = Pango.FontDescription(self.font)
+		self.textview.modify_font(pangoFont)
+		self.textview.modify_fg(Gtk.StateFlags.NORMAL, Gdk.color_parse(self.font_color))
+		self.textview.modify_bg(Gtk.StateFlags.NORMAL, Gdk.color_parse(self.background_color))					
+			
+		self.guibuilder.get_object("fontbutton").set_font_name(self.font)
+		self.guibuilder.get_object("colorbutton_font").set_color(Gdk.color_parse(self.font_color))
+		self.guibuilder.get_object("colorbutton_background").set_color(Gdk.color_parse(self.background_color))
+		self.guibuilder.get_object("spinbutton_line_limit").set_value(self.line_limit)
+		self.guibuilder.get_object("checkbutton").set_active(self.simple_mode)
+			
+
 		
 		#self.window.maximize();
 		self.textview.show_all();
@@ -280,10 +315,20 @@ class writer():
 		self.save(self);
 		
 	def quit(self,wedget,data=None):
+		config = configparser.ConfigParser()
+		if (config.read('.sbw.cfg') == []):
+			config.add_section('cfg')			
+		config.set('cfg', 'font',self.font)
+		config.set('cfg', 'font_color',self.font_color)
+		config.set('cfg', 'background_color',self.background_color)			
+		config.set('cfg', 'line_limit',str(self.line_limit))
+		config.set('cfg', 'simple_mode',str(self.simple_mode))
+		with open('.sbw.cfg', 'w') as configfile:
+			config.write(configfile)
+			
 		if self.textbuffer.get_modified() == True:
 			dialog =  Gtk.Dialog(None,self.window,1,
-			("Close without saving",Gtk.ResponseType.YES,"Save", Gtk.ResponseType.NO,"Cancel", Gtk.ResponseType.CANCEL))
-			
+			("Close without saving",Gtk.ResponseType.YES,"Save", Gtk.ResponseType.NO,"Cancel", Gtk.ResponseType.CANCEL))			
 			label = Gtk.Label("Close without saving ?.")
 			box = dialog.get_content_area();
 			box.add(label)
@@ -316,6 +361,26 @@ class writer():
 	
 	def about_close(self,wedget,data=None):
 		wedget.destroy()
+		
+	def font_set(self,widget):
+		self.font = widget.get_font_name();
+		pangoFont = Pango.FontDescription(self.font)
+		self.textview.modify_font(pangoFont)
+
+	def font_color_set(self,widget):
+		self.font_color = widget.get_color().to_string()
+		self.textview.modify_fg(Gtk.StateFlags.NORMAL, Gdk.color_parse(self.font_color))
+
+	def background_color_set(self,widget):
+		self.background_color = widget.get_color().to_string()
+		self.textview.modify_bg(Gtk.StateFlags.NORMAL, Gdk.color_parse(self.background_color))
+
+	def line_limit_set(self,widget):
+		self.line_limit = widget.get_value_as_int()
+	
+	def simple_mode_checkbutton_toggled(self,widget):
+		self.simple_mode = int(widget.get_active())
+				
 		
 if __name__ == "__main__":
 	writer()
