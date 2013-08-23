@@ -57,6 +57,7 @@ class writer():
 		self.textview.grab_focus();
 		
 		
+		
 		# Setting language menu items
 		menu_languages = Gtk.Menu()
 		for line in open("%s/data/languages.txt" % data_dir,'r'):
@@ -67,7 +68,7 @@ class writer():
 		self.language_menu.set_submenu(menu_languages);
 		
 		
-		#Load the english map by default
+		#Load the first language by default
 		self.load_map("english")
 		
 		#Braille Iter's
@@ -185,7 +186,7 @@ class writer():
 	def load_map(self,language):
 		print ("loading Map for language : %s" %language)
 		self.map = {}
-		self.abbreviations = {}
+		self.language = language; 
 		submap_number = 1;
 		self.append_sub_map(language,"beginning.txt",submap_number);
 		submap_number = 2;
@@ -203,19 +204,10 @@ class writer():
 					submap_number += 1;
 					self.append_sub_map(language,text_file,submap_number);
 					self.contractions_dict[text_file[:-4]] = submap_number-1;
-		
-		
 		#Load abbreviations if exist
-		try:
-			for line in open("%s/data/%s/abbreviations.txt"%(data_dir,language),"r"):
-				self.abbreviations[line.split("  ")[0]] = line.split("  ")[1][:-1]
-		except FileNotFoundError:
-			pass
+		self.load_abbrivation();
 		
-		try:
-			self.readme_text = open("%s/data/%s/help.txt"%(data_dir,language),"r").read()
-		except FileNotFoundError:
-			pass
+
 
 	
 	def append_sub_map(self,language,filename,submap_number):
@@ -236,7 +228,15 @@ class writer():
 			if len(self.map[key]) < submap_number:
 				self.map[key].append(" ");
 				 
-
+	def load_abbrivation(self):
+		self.abbreviations = {}
+		try:
+			for line in open("%s/data/%s/abbreviations.txt"%(data_dir,self.language),"r"):
+				self.abbreviations[line.split("  ")[0]] = line.split("  ")[1][:-1]
+		except FileNotFoundError:
+			pass
+					
+	
 	def new(self,wedget,data=None):
 		if (self.textbuffer.get_modified() == True):
 			dialog =  Gtk.Dialog("Start new without saving ?",self.window,True,
@@ -347,10 +347,15 @@ class writer():
 			Gtk.main_quit()
 
 	def readme(self,wedget,data=None):
-		self.textbuffer.set_text(self.readme_text)
-		start = self.textbuffer.get_start_iter()
-		self.textbuffer.place_cursor(start)
-		self.textbuffer.set_modified(False)
+		try:
+			readme_text = open("%s/data/%s/help.txt"%(data_dir,self.language),"r").read()
+		except FileNotFoundError:
+			pass
+		else:
+			self.textbuffer.set_text(readme_text)
+			start = self.textbuffer.get_start_iter()
+			self.textbuffer.place_cursor(start)
+			self.textbuffer.set_modified(False)
 
 	def about(self,wedget,data=None):
 		guibuilder_about = Gtk.Builder()
@@ -381,6 +386,33 @@ class writer():
 	def simple_mode_checkbutton_toggled(self,widget):
 		self.simple_mode = int(widget.get_active())
 				
+	def open_abbreviation(self,widget):
+		abbreviations = open("%s/data/%s/abbreviations.txt"%(data_dir,self.language),"r")
+		self.textbuffer.set_text(abbreviations.read())
+		self.textbuffer.place_cursor(self.textbuffer.get_end_iter())
+		abbreviations.close()
+		self.textbuffer.set_modified(False)
+
+	def save_abbreviation(self,widget):
+		abbreviations = open("%s/data/%s/abbreviations.txt"%(data_dir,self.language),"w")
+		start, end = self.textbuffer.get_bounds()
+		text = self.textbuffer.get_text(start, end,False)
+		for line in text.split("\n"):
+			if (len(line.split("  ")) == 2):
+				abbreviations.write("%s\n"%(line))
+				#abbreviations.write("%s  %s\n"%(line.split("~")[0],line.split("~")[1]))
+		abbreviations.close()
+		self.load_abbrivation();
+		self.textbuffer.set_modified(False)
+
+	def restore_abbreviation(self,widget):
+		abbreviations = open("%s/data/%s/abbreviations.txt"%(data_dir,self.language),"w")
+		abbreviations_default = open("%s/data/%s/abbreviations_default.txt"%(data_dir,self.language),"r")
+		abbreviations.write(abbreviations_default.read())
+		abbreviations.close()
+		abbreviations_default.close()
+		self.load_abbrivation();
+
 		
 if __name__ == "__main__":
 	writer()
