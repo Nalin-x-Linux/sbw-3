@@ -47,11 +47,8 @@ class writer():
 		self.textview = self.guibuilder.get_object("textview")
 		self.label = self.guibuilder.get_object("label")
 		self.language_menu = self.guibuilder.get_object("menuitem_Language")
-		
-		
 		self.textbuffer = self.textview.get_buffer();
 		self.guibuilder.connect_signals(self);
-		self.textbuffer.insert_at_cursor("Thias ifs a sample of text that is werong. cat lov dog very Thias much factsd is not a power");
 		
 		# braille letters
 		self.pressed_keys = "";
@@ -64,13 +61,21 @@ class writer():
 		
 		
 		
-		# Setting language menu items
+		# Setting language menu items with keys
 		menu_languages = Gtk.Menu()
+		accel_group = Gtk.AccelGroup()
+		self.window.add_accel_group(accel_group)
+		i = 1
 		for line in open("%s/data/languages.txt" % data_dir,'r'):
 			menuitem = Gtk.MenuItem()
 			menuitem.set_label(line[:-1])
 			menuitem.connect("activate",self.load_language);
+			key,mods=Gtk.accelerator_parse("F%d" % i)
+			if (i < 13):
+				menuitem.add_accelerator("activate", accel_group,key, mods, Gtk.AccelFlags.VISIBLE)
+				i = i + 1
 			menu_languages.append(menuitem);
+			
 		self.language_menu.set_submenu(menu_languages);
 		
 		
@@ -80,6 +85,8 @@ class writer():
 		#Braille Iter's
 		self.braille_iter = 0;
 		self.braille_letter_map_pos = 0;
+		
+		#line limit iter
 		
 		#User Preferences
 		config = configparser.ConfigParser()
@@ -113,7 +120,7 @@ class writer():
 				
 
 		
-		#self.window.maximize();
+		self.window.maximize();
 		self.textview.show_all();
 		self.window.show_all();
 		Gtk.main();
