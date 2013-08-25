@@ -57,7 +57,7 @@ class writer():
 		self.pressed_keys = "";
 		
 		#Key code map
-		self.keycode_map = {41:"f",40:"d",39:"s",44:"j",45:"k",46:"l"}
+		self.keycode_map = {41:"f",40:"d",39:"s",44:"j",45:"k",46:"l",43:"h",42:"g"}
 		
 		#Grabing focus
 		self.textview.grab_focus();
@@ -120,7 +120,7 @@ class writer():
 		
 	def order_pressed_keys(self,pressed_keys):
 		ordered = ""
-		for key in ["f","d","s","j","k","l"]:
+		for key in ["g","f","d","s","h","j","k","l"]:
 			if key in pressed_keys:
 				ordered += key;
 		return ordered;
@@ -137,8 +137,19 @@ class writer():
 		if (self.braille_iter == 1): 
 			if self.pressed_keys != "":
 				ordered_pressed_keys = self.order_pressed_keys(self.pressed_keys);
-				
-				if ordered_pressed_keys in self.contractions_dict.keys():
+				if ordered_pressed_keys == "gh":
+					start = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());
+					end = start.copy()
+					start.backward_word_start()
+					self.textbuffer.delete(start, end)
+				elif ordered_pressed_keys == "h":
+					if (self.textbuffer.get_has_selection()):
+						self.textbuffer.delete_selection(True,True)
+					else:
+						iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());
+						self.textbuffer.backspace(iter,True,True);	
+										
+				elif ordered_pressed_keys in self.contractions_dict.keys():
 					self.braille_letter_map_pos = self.contractions_dict[ordered_pressed_keys];
 					print (self.braille_letter_map_pos);
 				else:
