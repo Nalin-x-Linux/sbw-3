@@ -61,3 +61,4 @@ touch /usr/lib/python3/dist-packages/sbw/__init__.py
 #chmod 555 /usr/share/pyshared/sbw/data/*
 chmod 777 /usr/share/pyshared/sbw/data/english/abbreviations.txt
 echo "============ Compleated==========================================="
+sudo -u `whoami` sharada-braille-writer
