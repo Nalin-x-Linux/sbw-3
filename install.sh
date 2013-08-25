@@ -14,7 +14,7 @@ echo "================= Sharada Braille  Wrieter =======================
 
 
 echo "============ Checking and Installing dependencies ================"
-apt-get install python-glade2 espeak python-espeak python-enchant espeak
+apt-get install python3-gi espeak python3-enchant
 
 echo "============ Checking and removing existing files ================"
 if [ -d /usr/share/pyshared/sbw ];
@@ -60,5 +60,6 @@ sudo chmod 755 /usr/share/applications/sharada-braille-writer.desktop
 ldconfig
 touch /usr/lib/python3/dist-packages/sbw/__init__.py
 chmod 777 /usr/share/pyshared/sbw/data/english/abbreviations.txt
+chmod 777 /usr/share/pyshared/sbw/data/malayalam/abbreviations.txt
 echo "============ Compleated==========================================="
 #sudo -u `whoami` sharada-braille-writer
