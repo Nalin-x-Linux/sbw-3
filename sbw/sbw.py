@@ -35,11 +35,11 @@ import enchant
 data_dir = "/usr/share/pyshared/sbw";
 
 #Changing directory to Home folder
-os.chdir(os.environ['HOME'])
+home_dir = os.environ['HOME']
 
 
 class writer():
-	def __init__ (self):
+	def __init__ (self,filename=None):
 		self.letter = {}
 		self.guibuilder = Gtk.Builder()
 		self.guibuilder.add_from_file("%s/ui/ui.glade" %(data_dir))
@@ -83,7 +83,7 @@ class writer():
 		
 		#User Preferences
 		config = configparser.ConfigParser()
-		if config.read('.sbw.cfg') != []:
+		if config.read('%s/.sbw.cfg'%home_dir) != []:
 			self.font = config.get('cfg','font')
 			self.font_color = config.get('cfg','font_color')
 			self.background_color = config.get('cfg','background_color')
@@ -106,7 +106,11 @@ class writer():
 		self.guibuilder.get_object("colorbutton_background").set_color(Gdk.color_parse(self.background_color))
 		self.guibuilder.get_object("spinbutton_line_limit").set_value(self.line_limit)
 		self.guibuilder.get_object("checkbutton").set_active(self.simple_mode)
-			
+		
+		if (filename):
+			 self.textbuffer.set_text(open(filename,"r").read())
+			 self.save_file_name = filename
+				
 
 		
 		#self.window.maximize();
@@ -130,7 +134,7 @@ class writer():
 			self.braille_iter = 1; 
 
 	def key_released(self,widget,event):
-		if (self.braille_iter == 1):
+		if (self.braille_iter == 1): 
 			if self.pressed_keys != "":
 				ordered_pressed_keys = self.order_pressed_keys(self.pressed_keys);
 				
@@ -323,14 +327,14 @@ class writer():
 		
 	def quit(self,wedget,data=None):
 		config = configparser.ConfigParser()
-		if (config.read('.sbw.cfg') == []):
+		if (config.read('%s/.sbw.cfg' % home_dir) == []):
 			config.add_section('cfg')			
 		config.set('cfg', 'font',self.font)
 		config.set('cfg', 'font_color',self.font_color)
 		config.set('cfg', 'background_color',self.background_color)			
 		config.set('cfg', 'line_limit',str(self.line_limit))
 		config.set('cfg', 'simple_mode',str(self.simple_mode))
-		with open('.sbw.cfg', 'w') as configfile:
+		with open('%s/.sbw.cfg'% home_dir , 'w') as configfile:
 			config.write(configfile)
 			
 		if self.textbuffer.get_modified() == True:
