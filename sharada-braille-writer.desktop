@@ -6,3 +6,4 @@ Terminal=false
 Exec=sharada-braille-writer
 Name=Sharada-Braille-Writer
 Icon=/usr/share/pyshared/sbw/ui/Icon.png
+MimeType=text/plain;
