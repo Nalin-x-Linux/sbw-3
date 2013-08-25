@@ -59,7 +59,6 @@ sudo chmod 755 /usr/share/applications/sharada-braille-writer.desktop
 
 ldconfig
 touch /usr/lib/python3/dist-packages/sbw/__init__.py
-chmod 777 /usr/share/pyshared/sbw/data/english/abbreviations.txt
-chmod 777 /usr/share/pyshared/sbw/data/malayalam/abbreviations.txt
+sudo chmod -R 777 /usr/share/pyshared/sbw/
 echo "============ Compleated==========================================="
 #sudo -u `whoami` sharada-braille-writer
