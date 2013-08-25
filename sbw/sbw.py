@@ -19,14 +19,17 @@
 ###########################################################################
 import os
 
-import configparser
-from subprocess import getoutput
-from threading import Thread
+
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import Gio
 from gi.repository import GLib
 from gi.repository import Pango
+
+import configparser
+from subprocess import getoutput
+from threading import Thread
+import enchant
 
 #Where the data is located
 data_dir = "/usr/share/pyshared/sbw";
@@ -48,7 +51,7 @@ class writer():
 		
 		self.textbuffer = self.textview.get_buffer();
 		self.guibuilder.connect_signals(self);
-		self.textbuffer.insert_at_cursor("This is a sample of text");
+		self.textbuffer.insert_at_cursor("Thias ifs a sample of text that is werong. cat lov dog very Thias much factsd is not a power");
 		
 		# braille letters
 		self.pressed_keys = "";
@@ -72,7 +75,7 @@ class writer():
 		
 		
 		#Load the first language by default
-		self.load_map("english")
+		self.load_map("english en")
 		
 		#Braille Iter's
 		self.braille_iter = 0;
@@ -186,26 +189,27 @@ class writer():
 	def load_language(self,widget):
 		self.load_map(widget.get_label())
 		
-	def load_map(self,language):
-		print ("loading Map for language : %s" %language)
+	def load_map(self,language_with_code):
+		self.language = language_with_code.split()[0]
+		self.enchant_language = language_with_code.split()[1]
+		print ("loading Map for language : %s" %self.language)
 		self.map = {}
-		self.language = language; 
 		submap_number = 1;
-		self.append_sub_map(language,"beginning.txt",submap_number);
+		self.append_sub_map("beginning.txt",submap_number);
 		submap_number = 2;
-		self.append_sub_map(language,"middle.txt",submap_number);
+		self.append_sub_map("middle.txt",submap_number);
 		submap_number = 3;
-		self.append_sub_map(language,"punctuations.txt",submap_number);
+		self.append_sub_map("punctuations.txt",submap_number);
 		
 		#Contraction dict 
 		self.contractions_dict = {};
 		
 		#load each contractions to map
-		for text_file in os.listdir("%s/data/%s/"%(data_dir,language)):
+		for text_file in os.listdir("%s/data/%s/"%(data_dir,self.language)):
 			if text_file not in ["beginning.txt","middle.txt","abbreviations.txt","abbreviations_default.txt","punctuations.txt","help.txt"]:
 				if "~" not in text_file:
 					submap_number += 1;
-					self.append_sub_map(language,text_file,submap_number);
+					self.append_sub_map(text_file,submap_number);
 					self.contractions_dict[text_file[:-4]] = submap_number-1;
 		#Load abbreviations if exist
 		self.load_abbrivation();
@@ -213,9 +217,9 @@ class writer():
 
 
 	
-	def append_sub_map(self,language,filename,submap_number):
+	def append_sub_map(self,filename,submap_number):
 		print("Loading sub map file for : %s with sn : %d " % (filename,submap_number))	
-		for line in open("%s/data/%s/%s"%(data_dir,language,filename),"r"):
+		for line in open("%s/data/%s/%s"%(data_dir,self.language,filename),"r"):
 			if (line.split(" ")[0]) in self.map.keys():
 				self.map[line.split(" ")[0]].append(line.split(" ")[1][:-1])
 				if len(self.map[line.split(" ")[0]]) != submap_number:
@@ -424,6 +428,9 @@ class writer():
 		text = self.textbuffer.get_text(start,end,False)		
 		record(text)
 		
+	def spell_check(self,widget):
+		Spell_Check(self.textview,self.textbuffer,self.language,self.enchant_language)
+		
 
 class record:
 	def __init__(self,text):
@@ -483,8 +490,124 @@ class record:
 	def record_to_wave(self):
 		os.system('espeak -a %s -v %s -f temp.txt -w %s.wav --split=%s -p %s -s %s' % (self.spinbutton_vloume.get_value(),self.model_voice[self.index_voice][0],self.file_to_output,self.spinbutton_split.get_value(),self.spinbutton_pitch.get_value(),self.spinbutton_speed.get_value()))
 		os.system('espeak "Conversion finish and saved to %s"' % (self.file_to_output))
+
+
+
+
+
+#  FUNCTION TO CHECK SPELLING		
+class Spell_Check:
+	def __init__ (self,textview,textbuffer,language,enchant_language):
+		self.textbuffer = textbuffer;
+		self.textview = textview;
+		#Loading Dict
+		self.dict = enchant.Dict(enchant_language)
 		
+		#Builder And Gui
+		builder = Gtk.Builder()
+		builder.add_from_file("%s/ui/Spell.glade" % (data_dir))
+		self.spell_window = builder.get_object("window")
+		builder.connect_signals(self)
+		self.entry = builder.get_object("entry")
+		
+
+		self.liststore = Gtk.ListStore(str)
+		self.treeview = builder.get_object("treeview")
+		self.treeview.connect("row-activated",self.activate_treeview)
+		
+		self.treeview.set_model(self.liststore)
+		column = Gtk.TreeViewColumn("Suggestions : ")
+		self.treeview.append_column(column)		
+		cell = Gtk.CellRendererText()
+		column.pack_start(cell, False)
+		column.add_attribute(cell, "text", 0)
+				
+		self.user_dict={}
+		mark = self.textbuffer.get_insert()
+		self.word_start = self.textbuffer.get_iter_at_mark(mark)
+		
+		self.find_next_miss_spelled()
+		self.spell_window.show()
+			
 	
+	def activate_treeview(self,widget, row, col):
+		model = widget.get_model()
+		text = model[row][0]
+		self.entry.set_text(text)
+		self.entry.grab_focus()  
+				
+	def close(self,widget,data=None):
+		self.spell_window.destroy()	
+
+	def change(self,data=None):
+		self.textbuffer.delete(self.word_start, self.word_end)
+		self.textbuffer.insert(self.word_start, self.entry.get_text())
+		self.find_next_miss_spelled()
+		
+		
+	def change_all(self,data=None):
+		self.textbuffer.delete(self.word_start, self.word_end)
+		self.textbuffer.insert(self.word_start, self.entry.get_text())
+		self.user_dict[self.word] = self.entry.get_text()		
+		self.find_next_miss_spelled()
+
+	def ignore(self,data=None):
+		self.word_start.forward_word_ends(2)
+		self.word_start.backward_word_starts(1)
+		self.find_next_miss_spelled()	
+
+	def ignore_all(self,data=None):
+		if self.dict.is_added(self.word) == False:
+			self.dict.add(self.word)	
+		self.find_next_miss_spelled()	
+
+	def find_next_miss_spelled(self):
+		if (self.move_iters_to_next_misspelled()):
+			self.textbuffer.select_range(self.word_start,self.word_end)
+			self.textview.scroll_to_iter(self.word_start, 0.2, use_align=False, xalign=0.5, yalign=0.5)
+			
+			self.entry.set_text("")
+			self.word = self.textbuffer.get_text(self.word_start,self.word_end,False)		
+			self.entry.set_text(self.word)
+			
+			self.liststore.clear()
+			for item in self.dict.suggest(self.word):
+				self.liststore.append([item])
+			self.entry.grab_focus()
+			self.textbuffer.select_range(self.word_start,self.word_end)
+			return True
+		else:
+			self.spell_window.destroy()
+			return False	
+	
+
+	def move_iters_to_next_misspelled(self):
+		while(True):
+			self.word_end = self.word_start.copy()
+			self.word_end.forward_word_end()
+				
+			self.word = self.textbuffer.get_text(self.word_start,self.word_end,False)			
+			try:
+				if (self.dict.check(self.word) == False and len(self.word) > 1):
+					if (self.word in self.user_dict.keys()):
+						self.textbuffer.delete(self.word_start, self.word_end)
+						self.textbuffer.insert(self.word_start,self.user_dict[self.word])
+					else:
+						return True
+			except:
+				pass
+				
+			last_word_end = self.textbuffer.get_end_iter();
+			last_word_end.backward_word_start()
+			last_word_end.forward_word_end()
+			
+			if (self.word_end.equal(last_word_end)):
+				return False
+			
+			self.word_start.forward_word_ends(2)
+			self.word_start.backward_word_starts(1)
+		
+		
 
 
 
