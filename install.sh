@@ -55,10 +55,10 @@ echo "Copying starter .....................OK"
 cp sharada-braille-writer /usr/bin/
 echo "Copying icon ........................OK"
 cp sharada-braille-writer.desktop /usr/share/applications/
+sudo chmod 755 /usr/share/applications/sharada-braille-writer.desktop
 
 ldconfig
 touch /usr/lib/python3/dist-packages/sbw/__init__.py
-#chmod 555 /usr/share/pyshared/sbw/data/*
 chmod 777 /usr/share/pyshared/sbw/data/english/abbreviations.txt
 echo "============ Compleated==========================================="
-sudo -u `whoami` sharada-braille-writer
+#sudo -u `whoami` sharada-braille-writer
