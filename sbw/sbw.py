@@ -75,7 +75,6 @@ class writer():
 				menuitem.add_accelerator("activate", accel_group,key, mods, Gtk.AccelFlags.VISIBLE)
 				i = i + 1
 			menu_languages.append(menuitem);
-			
 		self.language_menu.set_submenu(menu_languages);
 		
 		
@@ -164,6 +163,12 @@ class writer():
 					self.textbuffer.insert_at_cursor(value);
 					print (self.braille_letter_map_pos)
 					self.braille_letter_map_pos = 1;
+				
+				#Line limit bell
+				iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());	
+				if (iter.get_chars_in_line() >= self.line_limit):
+					pass
+					
 			else:
 				#Space or enter
 				if (event.hardware_keycode in [65,36]):
