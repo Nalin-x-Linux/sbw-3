@@ -85,6 +85,10 @@ class writer():
 		self.braille_iter = 0;
 		self.braille_letter_map_pos = 0;
 		
+		
+		#capital switch
+		self.capital_switch = 0;
+		
 		#line limit iter
 		
 		#User Preferences
@@ -153,7 +157,9 @@ class writer():
 						self.textbuffer.delete_selection(True,True)
 					else:
 						iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());
-						self.textbuffer.backspace(iter,True,True);	
+						self.textbuffer.backspace(iter,True,True);
+				elif ordered_pressed_keys == "g":
+					self.capital_switch = 1	
 										
 				elif ordered_pressed_keys in self.contractions_dict.keys() and not self.simple_mode:
 					self.braille_letter_map_pos = self.contractions_dict[ordered_pressed_keys];
@@ -163,9 +169,15 @@ class writer():
 						value = self.map[ordered_pressed_keys][self.braille_letter_map_pos];
 					except KeyError:
 						value = ""
+					
+					#Make letter capitol if switch is on 
+					if (self.capital_switch):
+						value = value.upper();
+						self.capital_switch = 0;
+						
 					self.textbuffer.insert_at_cursor(value);
-					print (self.braille_letter_map_pos)
 					self.braille_letter_map_pos = 1;
+					print ("Map Pos : ",self.braille_letter_map_pos)
 				
 				#Line limit bell
 				iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());	
