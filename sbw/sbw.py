@@ -155,11 +155,14 @@ class writer():
 						iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());
 						self.textbuffer.backspace(iter,True,True);	
 										
-				elif ordered_pressed_keys in self.contractions_dict.keys():
+				elif ordered_pressed_keys in self.contractions_dict.keys() and not self.simple_mode:
 					self.braille_letter_map_pos = self.contractions_dict[ordered_pressed_keys];
 					print (self.braille_letter_map_pos);
 				else:
-					value = self.map[ordered_pressed_keys][self.braille_letter_map_pos];
+					try:
+						value = self.map[ordered_pressed_keys][self.braille_letter_map_pos];
+					except KeyError:
+						value = ""
 					self.textbuffer.insert_at_cursor(value);
 					print (self.braille_letter_map_pos)
 					self.braille_letter_map_pos = 1;
