@@ -45,7 +45,7 @@ class writer():
 		self.guibuilder.add_from_file("%s/ui/ui.glade" %(data_dir))
 		self.window = self.guibuilder.get_object("window")
 		self.textview = self.guibuilder.get_object("textview")
-		self.label = self.guibuilder.get_object("label")
+		self.label = self.guibuilder.get_object("info_label")
 		self.language_menu = self.guibuilder.get_object("menuitem_Language")
 		self.textbuffer = self.textview.get_buffer();
 		self.guibuilder.connect_signals(self);
@@ -178,17 +178,23 @@ class writer():
 					self.textbuffer.insert_at_cursor(value);
 					self.braille_letter_map_pos = 1;
 					print ("Map Pos : ",self.braille_letter_map_pos)
-				
-				#Line limit bell
-				iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());	
-				if (iter.get_chars_in_line() >= self.line_limit):
-					pass
+					if  (len(value) > 1):
+						self.label.set_text(value);
 					
 			else:
 				#Space or enter
 				if (event.hardware_keycode in [65,36]):
 					self.braille_letter_map_pos = 0;
 					self.textbuffer.insert_at_cursor(event.string);
+					
+					#Line limit info
+					iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());	
+					if (iter.get_chars_in_line() >= self.line_limit):
+						if (self.simple_mode):
+							self.textbuffer.insert_at_cursor("\n");
+						else:
+							self.label.set_text("Limit exceeded %s" % iter.get_chars_in_line());
+					
 				
 				# ; for punctuations
 				elif (event.hardware_keycode == 47):
@@ -213,8 +219,7 @@ class writer():
 					if (last_word in self.abbreviations.keys()):
 						self.textbuffer.delete(start,iter);
 						self.textbuffer.insert_at_cursor(self.abbreviations[last_word]);
-						
-				
+						self.label.set_text("%s" % self.abbreviations[last_word]);				
 				else:
 					print (event.hardware_keycode);
 					
