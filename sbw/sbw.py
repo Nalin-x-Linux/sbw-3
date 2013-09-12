@@ -205,7 +205,7 @@ class writer():
 						self.textbuffer.backspace(iter,True,True);
 				
 				# substitute abbriviation 
-				elif (event.hardware_keycode == 38):
+				elif (event.hardware_keycode == 38 and not self.simple_mode):
 					iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());
 					start = iter.copy();
 					start.backward_word_start()
