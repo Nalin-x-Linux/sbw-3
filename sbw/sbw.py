@@ -151,14 +151,21 @@ class writer():
 					start = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());
 					end = start.copy()
 					start.backward_word_start()
+					self.label.set_text("%s deleted" % self.textbuffer.get_text(start,end,True));
 					self.textbuffer.delete(start, end)
+					
+					
 				elif ordered_pressed_keys == "h":
 					if (self.textbuffer.get_has_selection()):
 						self.textbuffer.delete_selection(True,True)
 					else:
 						iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());
+						start = iter.copy()
+						start.backward_char();
+						self.label.set_text("%s deleted" % self.textbuffer.get_text(start,iter,True));
 						self.textbuffer.backspace(iter,True,True);
-				elif ordered_pressed_keys == "g":
+						
+				elif ordered_pressed_keys == "g" and self.language == "english":
 					self.capital_switch = 1	
 										
 				elif ordered_pressed_keys in self.contractions_dict.keys() and not self.simple_mode:
@@ -187,13 +194,17 @@ class writer():
 					self.braille_letter_map_pos = 0;
 					self.textbuffer.insert_at_cursor(event.string);
 					
-					#Line limit info
-					iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());	
-					if (iter.get_chars_in_line() >= self.line_limit):
-						if (self.simple_mode):
-							self.textbuffer.insert_at_cursor("\n");
-						else:
-							self.label.set_text("Limit exceeded %s" % iter.get_chars_in_line());
+					if (event.hardware_keycode == 36):
+						self.label.set_text("new line");
+					else:
+						#Line limit info
+						iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());	
+						if (iter.get_chars_in_line() >= self.line_limit):
+							if (self.simple_mode):
+								self.textbuffer.insert_at_cursor("\n");
+								self.label.set_text("new line");
+							else:
+								self.label.set_text("Limit exceeded %s" % iter.get_chars_in_line());
 					
 				
 				# ; for punctuations
@@ -238,6 +249,7 @@ class writer():
 		
 	def load_map(self,language_with_code):
 		self.language = language_with_code.split()[0]
+		self.label.set_text("%s loded" % self.language);
 		self.enchant_language = language_with_code.split()[1]
 		print ("loading Map for language : %s" %self.language)
 		self.map = {}
