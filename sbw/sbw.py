@@ -231,6 +231,8 @@ class writer():
 						self.textbuffer.delete(start,iter);
 						self.textbuffer.insert_at_cursor(self.abbreviations[last_word]);
 						self.label.set_text("%s" % self.abbreviations[last_word]);				
+				elif (event.hardware_keycode == 49):
+					self.textbuffer.insert_at_cursor('\t');					
 				else:
 					print (event.hardware_keycode);
 					
