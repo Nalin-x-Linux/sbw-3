@@ -49,7 +49,11 @@ class writer():
 		self.language_menu = self.guibuilder.get_object("menuitem_Language")
 		self.textbuffer = self.textview.get_buffer();
 		self.guibuilder.connect_signals(self);
-		
+
+		#Switching off the event bell
+		settings = Gtk.Settings.get_default()
+		settings.set_property("gtk-error-bell", False)
+				
 		# braille letters
 		self.pressed_keys = "";
 		
