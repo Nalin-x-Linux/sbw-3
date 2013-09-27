@@ -469,6 +469,7 @@ class writer():
 		self.textbuffer.place_cursor(self.textbuffer.get_end_iter())
 		abbreviations.close()
 		self.textbuffer.set_modified(False)
+		self.label.set_text("List opened");
 
 	def save_abbreviation(self,widget):
 		abbreviations = open("%s/data/%s/abbreviations.txt"%(data_dir,self.language),"w")
@@ -481,6 +482,7 @@ class writer():
 		abbreviations.close()
 		self.load_abbrivation();
 		self.textbuffer.set_modified(False)
+		self.label.set_text("Abbreviation saved");
 
 	def restore_abbreviation(self,widget):
 		abbreviations = open("%s/data/%s/abbreviations.txt"%(data_dir,self.language),"w")
@@ -489,6 +491,7 @@ class writer():
 		abbreviations.close()
 		abbreviations_default.close()
 		self.load_abbrivation();
+		self.label.set_text("Abbreviation restored");
 	def audio_converter(self,widget):
 		try:
 			start,end = self.textbuffer.get_selection_bounds()
