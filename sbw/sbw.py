@@ -201,7 +201,8 @@ class writer():
 					self.textbuffer.insert_at_cursor(event.string);
 					
 					if (event.hardware_keycode == 36):
-						self.label.set_text("new line");
+						iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());
+						self.label.set_text("new line %d" % (iter.get_line()+1));
 					else:
 						#Line limit info
 						iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());	
@@ -238,7 +239,9 @@ class writer():
 						self.textbuffer.insert_at_cursor(self.abbreviations[last_word]);
 						self.label.set_text("%s" % self.abbreviations[last_word]);				
 				elif (event.hardware_keycode == 49):
-					self.textbuffer.insert_at_cursor('\t');					
+					self.textbuffer.insert_at_cursor('\t');
+					iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());
+					self.label.set_text("Tab %s" % iter.get_chars_in_line());					
 				else:
 					print (event.hardware_keycode);
 					
