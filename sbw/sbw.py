@@ -188,6 +188,8 @@ class writer():
 						
 					self.textbuffer.insert_at_cursor(value);
 					self.braille_letter_map_pos = 1;
+					if value in ["'","(",'"',"[","{","-"]:
+						self.braille_letter_map_pos = 0;
 					print ("Map Pos : ",self.braille_letter_map_pos)
 					if  (len(value) > 1):
 						self.label.set_text(value);
