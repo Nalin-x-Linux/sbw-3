@@ -376,6 +376,7 @@ class writer():
 			if response == Gtk.ResponseType.OK:
 				self.save_file_name = "%s"%(save_file.get_filename())
 				open("%s" %(self.save_file_name),'w').write(text)
+				self.label.set_text("Text saved to %s" % self.save_file_name);
 				self.textbuffer.set_modified(False)	
 				save_file.destroy()
 				return True
@@ -383,7 +384,8 @@ class writer():
 				save_file.destroy()
 				return False
 		else:
-			open("%s" %(self.save_file_name),'w').write(text)	
+			open("%s" %(self.save_file_name),'w').write(text)
+			self.label.set_text("Text saved to %s" % self.save_file_name);	
 			self.textbuffer.set_modified(False)
 			return True		
 
