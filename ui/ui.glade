@@ -269,7 +269,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="use_action_appearance">False</property>
-                    <property name="label" translatable="yes">toolbutton</property>
+                    <property name="label" translatable="yes">New</property>
                     <property name="use_underline">True</property>
                     <property name="stock_id">gtk-new</property>
                     <signal name="clicked" handler="new" swapped="no"/>
@@ -285,7 +285,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="use_action_appearance">False</property>
-                    <property name="label" translatable="yes">toolbutton2</property>
+                    <property name="label" translatable="yes">Open</property>
                     <property name="use_underline">True</property>
                     <property name="stock_id">gtk-open</property>
                     <signal name="clicked" handler="open" swapped="no"/>
@@ -301,7 +301,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="use_action_appearance">False</property>
-                    <property name="label" translatable="yes">toolbutton3</property>
+                    <property name="label" translatable="yes">Save</property>
                     <property name="use_underline">True</property>
                     <property name="stock_id">gtk-save</property>
                     <signal name="clicked" handler="save" swapped="no"/>
@@ -317,7 +317,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="use_action_appearance">False</property>
-                    <property name="label" translatable="yes">toolbutton4</property>
+                    <property name="label" translatable="yes">Spell-Check</property>
                     <property name="use_underline">True</property>
                     <property name="stock_id">gtk-spell-check</property>
                     <signal name="clicked" handler="spell_check" swapped="no"/>
@@ -333,7 +333,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="use_action_appearance">False</property>
-                    <property name="label" translatable="yes">toolbutton5</property>
+                    <property name="label" translatable="yes">About</property>
                     <property name="use_underline">True</property>
                     <property name="stock_id">gtk-about</property>
                     <signal name="clicked" handler="about" swapped="no"/>
@@ -349,7 +349,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="use_action_appearance">False</property>
-                    <property name="label" translatable="yes">toolbutton6</property>
+                    <property name="label" translatable="yes">Quit</property>
                     <property name="use_underline">True</property>
                     <property name="stock_id">gtk-quit</property>
                     <signal name="clicked" handler="quit" swapped="no"/>
