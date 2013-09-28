@@ -313,6 +313,17 @@ class writer():
 		except FileNotFoundError:
 			pass
 					
+	def copy(self,wedget,data=None):
+		self.clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
+		self.textbuffer.copy_clipboard(self.clipboard)
+	def cut(self,wedget,data=None):
+		self.clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
+		self.textbuffer.cut_clipboard(self.clipboard, True)
+	def paste(self,wedget,data=None):
+		self.clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
+		self.textbuffer.paste_clipboard(self.clipboard, None, True)
+	def delete(self,wedget,data=None):
+		self.textbuffer.delete_selection(True, True)
 	
 	def new(self,wedget,data=None):
 		if (self.textbuffer.get_modified() == True):
@@ -339,6 +350,7 @@ class writer():
 		else:
 			start, end = self.textbuffer.get_bounds()
 			self.textbuffer.delete(start, end)
+		self.textview.grab_focus();
 
 	def open(self,wedget,data=None):
 		open_file = Gtk.FileChooserDialog("Select the file to open",None,Gtk.FileChooserAction.OPEN,buttons=(Gtk.STOCK_OPEN,Gtk.ResponseType.OK))
