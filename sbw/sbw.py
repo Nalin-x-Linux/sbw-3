@@ -93,7 +93,10 @@ class writer():
 		#capital switch
 		self.capital_switch = 0;
 		
-		#line limit iter
+		self.spinbutton_line = self.guibuilder.get_object("spinbutton_line")
+		self.spinbutton_label = self.guibuilder.get_object("spinbutton_label")
+		self.spinbutton_line.hide()
+		self.spinbutton_label.hide()
 		
 		#User Preferences
 		config = configparser.ConfigParser()
@@ -324,6 +327,29 @@ class writer():
 		self.textbuffer.paste_clipboard(self.clipboard, None, True)
 	def delete(self,wedget,data=None):
 		self.textbuffer.delete_selection(True, True)
+	
+	def go_to_line(self,wedget,data=None):
+		insert_mark = self.textbuffer.get_insert()
+		offset = self.textbuffer.get_iter_at_mark(insert_mark)
+		line = offset.get_line()
+		maximum = self.textbuffer.get_line_count() 
+		adj = Gtk.Adjustment(value=1, lower=1, upper=maximum, step_incr=1, page_incr=5, page_size=0)
+		self.spinbutton_line.set_adjustment(adj)
+		self.spinbutton_line.set_value(line)		
+		self.spinbutton_line.show()
+		self.spinbutton_label.show()
+		self.spinbutton_label.set_mnemonic_widget(self.spinbutton_line)
+		self.spinbutton_line.connect("activate",self.go_to_line_function)
+		self.spinbutton_line.grab_focus()
+
+	def go_to_line_function(self,data=None):
+		self.spinbutton_line.hide()
+		self.spinbutton_label.hide()
+		to = self.spinbutton_line.get_value_as_int()
+		iter = self.textbuffer.get_iter_at_line(to)	
+		self.textbuffer.place_cursor(iter)
+		self.textview.scroll_to_iter(iter, 0.0,False,0.0,0.0)
+
 	
 	def new(self,wedget,data=None):
 		if (self.textbuffer.get_modified() == True):
