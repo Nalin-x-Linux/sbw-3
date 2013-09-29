@@ -375,7 +375,7 @@ class writer():
 				self.textbuffer.delete(start, end)
 				del self.save_file_name													
 			elif response == Gtk.ResponseType.ACCEPT:
-				if (self.on_save_activate(self)):
+				if (self.save(self)):
 					start, end = self.textbuffer.get_bounds()
 					self.textbuffer.delete(start, end)
 					del self.save_file_name
@@ -463,7 +463,7 @@ class writer():
 			if response == Gtk.ResponseType.YES:
 				Gtk.main_quit()			
 			elif response == Gtk.ResponseType.NO:
-				if (self.on_save_activate(self)):
+				if (self.save(self)):
 					Gtk.main_quit()
 			else:
 				return True
