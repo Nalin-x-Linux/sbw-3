@@ -236,10 +236,10 @@ class writer():
 					self.textbuffer.insert_at_cursor('\t');
 					iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());
 					self.label.set_text("Tab at %s" % iter.get_line_offset());					
-				elif (event.hardware_keycode == 49):
-					self.braille_letter_map_pos = 1;
+				elif (event.hardware_keycode == 64):
+					self.braille_letter_map_pos = 0;
 				elif (event.hardware_keycode == 108):
-					self.braille_letter_map_pos = 2;					
+					self.braille_letter_map_pos = 1;					
 				else:
 					print (event.hardware_keycode);
 					
