@@ -106,12 +106,14 @@ class writer():
 			self.background_color = config.get('cfg','background_color')
 			self.line_limit = int(config.get('cfg','line_limit'))
 			self.simple_mode = int(config.get('cfg','simple_mode'))
+			self.auto_new_line = int(config.get('cfg','auto_new_line'))
 		else:
 			self.font = 'Georgia 14'
 			self.font_color = '#fff'
 			self.background_color = '#000'		
 			self.line_limit =  100
 			self.simple_mode = 0
+			self.auto_new_line = 0;
 		
 		pangoFont = Pango.FontDescription(self.font)
 		self.textview.modify_font(pangoFont)
@@ -123,6 +125,7 @@ class writer():
 		self.guibuilder.get_object("colorbutton_background").set_color(Gdk.color_parse(self.background_color))
 		self.guibuilder.get_object("spinbutton_line_limit").set_value(self.line_limit)
 		self.guibuilder.get_object("checkbutton").set_active(self.simple_mode)
+		self.guibuilder.get_object("checkbutton_auto_new_line").set_active(self.auto_new_line)
 		
 		if (filename):
 			 self.textbuffer.set_text(open(filename,"r").read())
@@ -204,7 +207,7 @@ class writer():
 						#Line limit info
 						iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());	
 						if (iter.get_chars_in_line() >= self.line_limit):
-							if (self.simple_mode):
+							if (self.auto_new_line):
 								self.textbuffer.insert_at_cursor("\n");
 								self.label.set_text("new line");
 							else:
@@ -443,6 +446,7 @@ class writer():
 		config.set('cfg', 'background_color',self.background_color)			
 		config.set('cfg', 'line_limit',str(self.line_limit))
 		config.set('cfg', 'simple_mode',str(self.simple_mode))
+		config.set('cfg', 'auto_new_line',str(self.auto_new_line))
 		with open('%s/.sbw.cfg'% home_dir , 'w') as configfile:
 			config.write(configfile)
 			
@@ -505,6 +509,8 @@ class writer():
 	
 	def simple_mode_checkbutton_toggled(self,widget):
 		self.simple_mode = int(widget.get_active())
+	def checkbutton_auto_new_line_toggled(self,widget):
+		self.auto_new_line = int(widget.get_active());
 				
 	def open_abbreviation(self,widget):
 		abbreviations = open("%s/data/%s/abbreviations.txt"%(data_dir,self.language),"r")
