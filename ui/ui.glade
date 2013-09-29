@@ -31,7 +31,7 @@
   <object class="GtkTextBuffer" id="textbuffer"/>
   <object class="GtkWindow" id="window">
     <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Sharada-Braille-Writer</property>
+    <property name="title" translatable="yes">Sharada Braille Writer</property>
     <property name="default_width">640</property>
     <property name="default_height">480</property>
     <property name="icon">Icon.png</property>
@@ -685,7 +685,7 @@
             </child>
             <child>
               <object class="GtkCheckButton" id="checkbutton">
-                <property name="label" translatable="yes">Simple-Mode</property>
+                <property name="label" translatable="yes">Simple Mode</property>
                 <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -714,7 +714,7 @@
             </child>
             <child>
               <object class="GtkCheckButton" id="checkbutton_auto_new_line">
-                <property name="label" translatable="yes">Auto-New-Line</property>
+                <property name="label" translatable="yes">Auto New Line</property>
                 <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
