@@ -163,14 +163,8 @@ class writer():
 					
 					
 				elif ordered_pressed_keys == "h":
-					if (self.textbuffer.get_has_selection()):
-						self.textbuffer.delete_selection(True,True)
-					else:
-						iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());
-						start = iter.copy()
-						start.backward_char();
-						self.label.set_text("%s deleted" % self.textbuffer.get_text(start,iter,True));
-						self.textbuffer.backspace(iter,True,True);
+					self.backspace(-1);
+
 						
 				elif ordered_pressed_keys == "g" and self.language == "english":
 					self.capital_switch = 1	
@@ -221,15 +215,9 @@ class writer():
 				elif (event.hardware_keycode == 47):
 					self.braille_letter_map_pos = 2;
 				
-				#Backspace delete or h
-				elif (event.hardware_keycode in [22,119,43]):
-					if (self.textbuffer.get_has_selection()):
-						self.textbuffer.delete_selection(True,True)
-					else:
-						iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());
-						if event.hardware_keycode == 119:
-							iter.forward_char()
-						self.textbuffer.backspace(iter,True,True);
+				#Backspace
+				elif (event.hardware_keycode == 22 or event.hardware_keycode == 43):
+					self.backspace(-1)
 				
 				# substitute abbriviation 
 				elif (event.hardware_keycode == 38 and not self.simple_mode):
@@ -255,8 +243,6 @@ class writer():
 		elif (self.braille_iter < 0):
 			self.braille_iter = 1;
 		self.braille_iter -= 1;
-		
-
 	
 	def load_language(self,widget):
 		self.load_map(widget.get_label())
@@ -326,7 +312,24 @@ class writer():
 		self.clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
 		self.textbuffer.paste_clipboard(self.clipboard, None, True)
 	def delete(self,wedget,data=None):
-		self.textbuffer.delete_selection(True, True)
+		self.backspace(1);
+
+	def backspace(self,move):
+		if (self.textbuffer.get_has_selection()):
+			self.textbuffer.delete_selection(True,True)
+		else:
+			iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());
+			start = iter.copy()
+			if(move == 1 and not iter.is_end()):
+				iter.forward_char()
+				self.label.set_text("%s at %d deleted" % (self.textbuffer.get_text(start,iter,True),iter.get_line_offset() ));
+				self.textbuffer.backspace(iter,True,True);
+			elif(move == -1):
+				start.backward_char();
+				self.label.set_text("%s at %d deleted" % (self.textbuffer.get_text(start,iter,True),iter.get_line_offset() ));
+				self.textbuffer.backspace(iter,True,True);
+			
+							
 	
 	def go_to_line(self,wedget,data=None):
 		insert_mark = self.textbuffer.get_insert()
