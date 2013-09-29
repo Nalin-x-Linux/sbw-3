@@ -112,8 +112,8 @@ class writer():
 			self.font_color = '#fff'
 			self.background_color = '#000'		
 			self.line_limit =  100
-			self.simple_mode = 0
-			self.auto_new_line = 0;
+			self.simple_mode = 1
+			self.auto_new_line = 1;
 		
 		pangoFont = Pango.FontDescription(self.font)
 		self.textview.modify_font(pangoFont)
@@ -236,6 +236,10 @@ class writer():
 					self.textbuffer.insert_at_cursor('\t');
 					iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());
 					self.label.set_text("Tab at %s" % iter.get_line_offset());					
+				elif (event.hardware_keycode == 49):
+					self.braille_letter_map_pos = 1;
+				elif (event.hardware_keycode == 108):
+					self.braille_letter_map_pos = 2;					
 				else:
 					print (event.hardware_keycode);
 					
