@@ -232,7 +232,7 @@ class writer():
 				elif (event.hardware_keycode == 49):
 					self.textbuffer.insert_at_cursor('\t');
 					iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());
-					self.label.set_text("Tab %s" % iter.get_chars_in_line());					
+					self.label.set_text("Tab at %s" % iter.get_line_offset());					
 				else:
 					print (event.hardware_keycode);
 					
@@ -462,7 +462,7 @@ class writer():
 				if (self.on_save_activate(self)):
 					Gtk.main_quit()
 			else:
-				pass
+				return True
 		else:
 			Gtk.main_quit()
 
