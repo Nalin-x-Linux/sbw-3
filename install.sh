@@ -14,7 +14,7 @@ echo "================= Sharada Braille  Wrieter =======================
 
 
 echo "============ Checking and Installing dependencies ================"
-apt-get install python3-gi espeak python3-enchant
+apt-get -qq install python3-gi espeak python3-enchant
 
 echo "============ Checking and removing existing files ================"
 if [ -d /usr/share/pyshared/sbw_2_0 ];
