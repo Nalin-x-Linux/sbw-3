@@ -32,7 +32,7 @@ from threading import Thread
 import enchant
 
 #Where the data is located
-data_dir = "/usr/share/pyshared/sbw";
+data_dir = "/usr/share/pyshared/sbw-2.0";
 
 #Changing directory to Home folder
 home_dir = os.environ['HOME']
@@ -100,7 +100,7 @@ class writer():
 		
 		#User Preferences
 		config = configparser.ConfigParser()
-		if config.read('%s/.sbw.cfg'%home_dir) != []:
+		if config.read('%s/.sbw-2.0.cfg'%home_dir) != []:
 			self.font = config.get('cfg','font')
 			self.font_color = config.get('cfg','font_color')
 			self.background_color = config.get('cfg','background_color')
@@ -443,7 +443,7 @@ class writer():
 		
 	def quit(self,wedget,data=None):
 		config = configparser.ConfigParser()
-		if (config.read('%s/.sbw.cfg' % home_dir) == []):
+		if (config.read('%s/.sbw-2.0.cfg' % home_dir) == []):
 			config.add_section('cfg')			
 		config.set('cfg', 'font',self.font)
 		config.set('cfg', 'font_color',self.font_color)
@@ -451,7 +451,7 @@ class writer():
 		config.set('cfg', 'line_limit',str(self.line_limit))
 		config.set('cfg', 'simple_mode',str(self.simple_mode))
 		config.set('cfg', 'auto_new_line',str(self.auto_new_line))
-		with open('%s/.sbw.cfg'% home_dir , 'w') as configfile:
+		with open('%s/.sbw-2.0.cfg'% home_dir , 'w') as configfile:
 			config.write(configfile)
 			
 		if self.textbuffer.get_modified() == True:
