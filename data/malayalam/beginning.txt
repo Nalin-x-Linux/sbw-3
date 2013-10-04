@@ -28,7 +28,7 @@ dsjkl ട
 djkl ഠ
 fdjl ഡ
 fdsjkl ഢ
-fdsjk അഭി
+fdsjk ക്ഷ
 sjkl ണ
 dsjk ത
 fjkl ഥ
@@ -54,4 +54,6 @@ dk ഞ
 ds നിര്‍
 d നിഷ്
 fskl അനു
-dkl പരി
+dkl .
+dskl പരി
+dsl അഭി
