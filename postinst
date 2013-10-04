@@ -1,0 +1,4 @@
+#! /bin/sh
+sudo ldconfig
+sudo chmod -R 777 /usr/share/pyshared/sbw_2_0/
+sudo update-menus

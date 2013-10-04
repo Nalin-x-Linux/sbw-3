@@ -1,0 +1,15 @@
+Package: sharada-braille-writer
+Priority: optional
+Section: gnome
+Installed-Size: 520
+Architecture: all
+Version: 2.0
+Depends: python3-gi,espeak,python3-enchant
+Provides: Nalin.x.Linux
+Maintainer: Nalin.x.Linux <Nalin.x.Linux@gmail.com>
+Homepage : http://sourceforge.net/projects/sbrw/
+Description: Sharada braille writer
+ Sharada braille writer is a six key approach to producing
+ printmaterials. Letters f, d, s, j, k, l represent 1 2 3 4 5 6 of the
+ braille dots respectively. By pressing "f" and "s" together will
+ produce letter "k" and like. 
