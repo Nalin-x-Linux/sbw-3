@@ -364,7 +364,7 @@ class writer():
 	def new(self,wedget,data=None):
 		if (self.textbuffer.get_modified() == True):
 			dialog =  Gtk.Dialog("Start new without saving ?",self.window,True,
-			("Save", Gtk.ResponseType.ACCEPT, "Cancel" ,Gtk.ResponseType.CLOSE, "Start-New!", Gtk.ResponseType.REJECT))                           						
+			("Save", Gtk.ResponseType.ACCEPT,"Start-New!", Gtk.ResponseType.REJECT))                           						
 
 			label = Gtk.Label("Start new without saving ?")
 			box = dialog.get_content_area();
@@ -373,20 +373,12 @@ class writer():
 
 			response = dialog.run()
 			dialog.destroy()				
-			
-			if response == Gtk.ResponseType.REJECT:
-				start, end = self.textbuffer.get_bounds()
-				self.textbuffer.delete(start, end)
-				del self.save_file_name													
-			elif response == Gtk.ResponseType.ACCEPT:
-				if (self.save(self)):
-					start, end = self.textbuffer.get_bounds()
-					self.textbuffer.delete(start, end)
-					del self.save_file_name
-		else:
-			start, end = self.textbuffer.get_bounds()
-			self.textbuffer.delete(start, end)
+			if response == Gtk.ResponseType.ACCEPT:
+				self.save(self)
+		start, end = self.textbuffer.get_bounds()
+		self.textbuffer.delete(start, end)
 		self.textview.grab_focus();
+		self.label.set_text("New");
 
 	def open(self,wedget,data=None):
 		open_file = Gtk.FileChooserDialog("Select the file to open",None,Gtk.FileChooserAction.OPEN,buttons=(Gtk.STOCK_OPEN,Gtk.ResponseType.OK))
