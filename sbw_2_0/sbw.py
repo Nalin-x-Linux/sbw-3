@@ -324,6 +324,7 @@ class writer():
 	def backspace(self,move):
 		if (self.textbuffer.get_has_selection()):
 			self.textbuffer.delete_selection(True,True)
+			self.label.set_text("Selection Deleted");
 		else:
 			iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());
 			start = iter.copy()
