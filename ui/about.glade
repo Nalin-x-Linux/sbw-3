@@ -4,7 +4,7 @@
   <object class="GtkAboutDialog" id="aboutdialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
-    <property name="title" translatable="yes">About Sharada-Braille-Writer</property>
+    <property name="title" translatable="yes">About Sharada Braille Writer 2.0</property>
     <property name="icon">Icon.png</property>
     <property name="type_hint">dialog</property>
     <property name="program_name">Sharada-Braille-Writer</property>
