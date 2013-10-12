@@ -1,4 +1,10 @@
 #! /bin/sh
 sudo ldconfig
 sudo chmod -R 777 /usr/share/pyshared/sbw_2_0/
+if [ -x "`which update-menus 2>/dev/null`" ]; then
 sudo update-menus
+fi
+
+if [ -x "`which update-desktop-database 2>/dev/null`" ]; then
+sudo update-desktop-database
+fi
