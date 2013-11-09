@@ -15,6 +15,9 @@ echo "Sharada Braille Writer : - SBW is a six key approach to producing
 echo "Checking and Installing dependencies"
 apt-get -qq install python3-gi espeak python3-enchant
 
+#Removing cache files
+find -iname *~ -delete
+
 echo "Checking and removing existing files"
 if [ -d /usr/share/pyshared/sbw_2_0 ];
 then 
