@@ -60,7 +60,6 @@ cp sharada-braille-writer-2.0.desktop /usr/share/applications/
 sudo chmod 755 /usr/share/applications/sharada-braille-writer-2.0.desktop
 
 ldconfig
-touch /usr/lib/python3/dist-packages/sbw_2_0/__init__.py
 sudo chmod -R 777 /usr/share/pyshared/sbw_2_0/
 sudo update-menus
 echo "Compleated"
