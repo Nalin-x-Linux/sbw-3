@@ -3,11 +3,7 @@
 import sys
 
 #Importing Sbw Modules
-<<<<<<< HEAD:sharada-braille-writer-2.0
-from sbw-2.0.sbw import writer
-=======
 from sbw_2_0.sbw import writer
->>>>>>> version_independent:sharada-braille-writer-2.0
 
 if __name__ == '__main__':
 	if (len(sys.argv) == 2):

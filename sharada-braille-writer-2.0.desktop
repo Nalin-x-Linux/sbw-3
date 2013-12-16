@@ -6,9 +6,5 @@ Type=Application
 Terminal=false
 Exec=sharada-braille-writer-2.0
 Name=Sharada-Braille-Writer-2.0
-<<<<<<< HEAD:sharada-braille-writer-2.0.desktop
-Icon=/usr/share/pyshared/sbw/ui/Icon.png
-=======
 Icon=/usr/share/pyshared/sbw_2_0/ui/Icon.png
->>>>>>> version_independent:sharada-braille-writer-2.0.desktop
 MimeType=text/plain;
