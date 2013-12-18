@@ -2,6 +2,7 @@ import enchant
 import inspect
 from gi.repository import Gtk
 from gi.repository import Gdk
+from gi.repository import Pango
 
 
 #Where the data is located
@@ -50,6 +51,7 @@ class Spell_Check:
 		self.spell_window = builder.get_object("window")
 		builder.connect_signals(self)
 		self.entry = builder.get_object("entry")
+		self.context_label = builder.get_object("label_context")
 		
 
 		self.liststore = Gtk.ListStore(str)
@@ -63,22 +65,33 @@ class Spell_Check:
 		column.pack_start(cell, False)
 		column.add_attribute(cell, "text", 0)
 				
+		#user dict for change all
 		self.user_dict={}
 		
+		#Tag for misspelled
+		size = self.textview.get_style().font_desc.get_size()/Pango.SCALE
+		desc = self.textview.get_style().font_desc
+		desc.set_size((size+size/2)*Pango.SCALE)
+		self.tag = self.textbuffer.create_tag(font = desc)
+		
+		#get the current cursor position 
 		mark = self.textbuffer.get_insert()
-		start = self.textbuffer.get_iter_at_mark(mark)
-		start.backward_word_start()
-		start.forward_word_end()
-
+		pos = self.textbuffer.get_iter_at_mark(mark)
+		
+		#move the pos to end of the near word
+		pos.backward_word_start()
+		pos.forward_word_end()
+		
+		#get the position of last word end
 		last_word_end = self.textbuffer.get_end_iter();
 		last_word_end.backward_word_start()
 		last_word_end.forward_word_end()
-		
-
-		if (start.equal(last_word_end)):
+		 
+		if (pos.equal(last_word_end)):
+			#start the spell-check from begining if pos and last-word-end are same
 			self.word_start = self.textbuffer.get_start_iter();
 		else:
-			self.word_start = start.copy();
+			self.word_start = pos.copy();
 			self.word_start.backward_word_start()
 						
 		
@@ -93,6 +106,8 @@ class Spell_Check:
 		self.entry.grab_focus()  
 	
 	def close(self,widget,data=None):
+		start,end = self.textbuffer.get_bounds()
+		self.textbuffer.remove_all_tags(start,end)
 		self.spell_window.destroy()	
 	
 	def change(self,data=None):
@@ -123,45 +138,59 @@ class Spell_Check:
 
 	def find_next_miss_spelled(self):
 		if (self.move_iters_to_next_misspelled()):
-			self.textbuffer.select_range(self.word_start,self.word_end)
+			start,end = self.textbuffer.get_bounds()
+			self.textbuffer.remove_all_tags(start,end)
+			self.textbuffer.apply_tag(self.tag,self.word_start,self.word_end)
 			self.textview.scroll_to_iter(self.word_start, 0.2, use_align=False, xalign=0.5, yalign=0.5)
 			
 			self.entry.set_text("")
 			self.word = self.textbuffer.get_text(self.word_start,self.word_end,False)		
+			start=self.word_start.copy()
+			start.backward_sentence_start()
+			end=self.word_start.copy()
+			end.forward_sentence_end()
+			sentence = self.textbuffer.get_text(start,end,True)			
+
+			context = "Misspelled word {0} : -  {1}".format(self.word,sentence)
+			self.context_label.set_text(context)
 			self.entry.set_text(self.word)
 			
 			self.liststore.clear()
 			for item in self.dict.suggest(self.word):
 				self.liststore.append([item])
 			self.entry.grab_focus()
-			self.textbuffer.select_range(self.word_start,self.word_end)
 			return True
 		else:
 			self.spell_window.destroy()
+			start,end = self.textbuffer.get_bounds()
+			self.textbuffer.remove_all_tags(start,end)
 			return False	
 	
 
 	def move_iters_to_next_misspelled(self):
+		#loop till a misspelled word found
 		while(True):
 			self.word_end = self.word_start.copy()
 			self.word_end.forward_word_end()
 				
 			self.word = self.textbuffer.get_text(self.word_start,self.word_end,False)			
-			try:
-				if (self.dict.check(self.word) == False and len(self.word) > 1):
+			
+			#check only non empty word
+			if (len(self.word) > 1):
+				if (self.dict.check(self.word) == False):
 					if (self.word in self.user_dict.keys()):
 						self.textbuffer.delete(self.word_start, self.word_end)
 						self.textbuffer.insert(self.word_start,self.user_dict[self.word])
 					else:
 						return True
-			except:
-				pass
 				
+			#check for the end reached
 			last_word_end = self.textbuffer.get_end_iter();
 			last_word_end.backward_word_start()
 			last_word_end.forward_word_end()	
 			if (self.word_end.equal(last_word_end)):
 				return False
 			
+			#move to next word
 			self.word_start.forward_word_ends(2)
 			self.word_start.backward_word_starts(1)
