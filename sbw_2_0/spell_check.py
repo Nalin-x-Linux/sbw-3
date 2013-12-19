@@ -1,12 +1,29 @@
+# coding: latin-1
+
+###########################################################################
+#    SBW - Sharada-Braille-Writer
+#    Copyright (C) 2012-2014 Nalin.x.Linux GPL-3
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+###########################################################################
 import enchant
 import inspect
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import Pango
 
-
-#Where the data is located
-data_dir = "/usr/share/pyshared/sbw_2_0";
+from sbw_2_0 import global_var
 
 
 
@@ -47,7 +64,7 @@ class Spell_Check:
 		
 		#Builder And Gui
 		builder = Gtk.Builder()
-		builder.add_from_file("%s/ui/Spell.glade" % (data_dir))
+		builder.add_from_file("%s/ui/Spell.glade" % (global_var.data_dir))
 		self.spell_window = builder.get_object("window")
 		builder.connect_signals(self)
 		self.entry = builder.get_object("entry")
