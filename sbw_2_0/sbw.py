@@ -2,7 +2,7 @@
 
 ###########################################################################
 #    SBW - Sharada-Braille-Writer
-#    Copyright (C) 2012-2013 Nalin.x.Linux GPL-3
+#    Copyright (C) 2012-2014 Nalin.x.Linux GPL-3
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -27,24 +27,18 @@ from gi.repository import GLib
 from gi.repository import Pango
 
 import configparser
-from subprocess import getoutput
-from threading import Thread
 
 from sbw_2_0 import spell_check
+from sbw_2_0 import converter
 
-
-#Where the data is located
-data_dir = "/usr/share/pyshared/sbw_2_0";
-
-#Changing directory to Home folder
-home_dir = os.environ['HOME']
+from sbw_2_0 import global_var
 
 
 class writer():
 	def __init__ (self,filename=None):
 		self.letter = {}
 		self.guibuilder = Gtk.Builder()
-		self.guibuilder.add_from_file("%s/ui/ui.glade" %(data_dir))
+		self.guibuilder.add_from_file("%s/ui/ui.glade" %(global_var.data_dir))
 		self.window = self.guibuilder.get_object("window")
 		self.textview = self.guibuilder.get_object("textview")
 		self.label = self.guibuilder.get_object("info_label")
@@ -72,7 +66,7 @@ class writer():
 		accel_group = Gtk.AccelGroup()
 		self.window.add_accel_group(accel_group)
 		i = 1
-		for line in open("%s/data/languages.txt" % data_dir,'r'):
+		for line in open("%s/data/languages.txt" % global_var.data_dir,'r'):
 			menuitem = Gtk.MenuItem()
 			menuitem.set_label(line[:-1])
 			menuitem.connect("activate",self.load_language);
@@ -102,7 +96,7 @@ class writer():
 		
 		#User Preferences
 		config = configparser.ConfigParser()
-		if config.read('%s/.sbw_2_0.cfg'%home_dir) != []:
+		if config.read('%s/.sbw_2_0.cfg'%global_var.home_dir) != []:
 			self.font = config.get('cfg','font')
 			self.font_color = config.get('cfg','font_color')
 			self.background_color = config.get('cfg','background_color')
@@ -273,7 +267,7 @@ class writer():
 		self.contractions_dict = {};
 		
 		#load each contractions to map
-		for text_file in os.listdir("%s/data/%s/"%(data_dir,self.language)):
+		for text_file in os.listdir("%s/data/%s/"%(global_var.data_dir,self.language)):
 			if text_file not in ["beginning.txt","middle.txt","abbreviations.txt","abbreviations_default.txt","punctuations.txt","help.txt"]:
 				if "~" not in text_file:
 					submap_number += 1;
@@ -287,7 +281,7 @@ class writer():
 	
 	def append_sub_map(self,filename,submap_number):
 		print("Loading sub map file for : %s with sn : %d " % (filename,submap_number))	
-		for line in open("%s/data/%s/%s"%(data_dir,self.language,filename),"r"):
+		for line in open("%s/data/%s/%s"%(global_var.data_dir,self.language,filename),"r"):
 			if (line.split(" ")[0]) in self.map.keys():
 				self.map[line.split(" ")[0]].append(line.split(" ")[1][:-1])
 				if len(self.map[line.split(" ")[0]]) != submap_number:
@@ -306,7 +300,7 @@ class writer():
 	def load_abbrivation(self):
 		self.abbreviations = {}
 		try:
-			for line in open("%s/data/%s/abbreviations.txt"%(data_dir,self.language),"r"):
+			for line in open("%s/data/%s/abbreviations.txt"%(global_var.data_dir,self.language),"r"):
 				self.abbreviations[line.split("  ")[0]] = line.split("  ")[1][:-1]
 		except FileNotFoundError:
 			pass
@@ -438,7 +432,7 @@ class writer():
 		
 	def quit(self,wedget,data=None):
 		config = configparser.ConfigParser()
-		if (config.read('%s/.sbw_2_0.cfg' % home_dir) == []):
+		if (config.read('%s/.sbw_2_0.cfg' % global_var.home_dir) == []):
 			config.add_section('cfg')			
 		config.set('cfg', 'font',self.font)
 		config.set('cfg', 'font_color',self.font_color)
@@ -446,7 +440,7 @@ class writer():
 		config.set('cfg', 'line_limit',str(self.line_limit))
 		config.set('cfg', 'simple_mode',str(self.simple_mode))
 		config.set('cfg', 'auto_new_line',str(self.auto_new_line))
-		with open('%s/.sbw_2_0.cfg'% home_dir , 'w') as configfile:
+		with open('%s/.sbw_2_0.cfg'% global_var.home_dir , 'w') as configfile:
 			config.write(configfile)
 			
 		if self.textbuffer.get_modified() == True:
@@ -471,7 +465,7 @@ class writer():
 
 	def readme(self,wedget,data=None):
 		try:
-			readme_text = open("%s/data/%s/help.txt"%(data_dir,self.language),"r").read()
+			readme_text = open("%s/data/%s/help.txt"%(global_var.data_dir,self.language),"r").read()
 		except FileNotFoundError:
 			pass
 		else:
@@ -482,7 +476,7 @@ class writer():
 
 	def about(self,wedget,data=None):
 		guibuilder_about = Gtk.Builder()
-		guibuilder_about.add_from_file("%s/ui/about.glade" % (data_dir))
+		guibuilder_about.add_from_file("%s/ui/about.glade" % (global_var.data_dir))
 		window_about = guibuilder_about.get_object("aboutdialog")
 		guibuilder_about.connect_signals({"about_close" : self.about_close })		
 		window_about.show()
@@ -512,7 +506,7 @@ class writer():
 		self.auto_new_line = int(widget.get_active());
 				
 	def open_abbreviation(self,widget):
-		abbreviations = open("%s/data/%s/abbreviations.txt"%(data_dir,self.language),"r")
+		abbreviations = open("%s/data/%s/abbreviations.txt"%(global_var.data_dir,self.language),"r")
 		self.textbuffer.set_text(abbreviations.read())
 		self.textbuffer.place_cursor(self.textbuffer.get_end_iter())
 		abbreviations.close()
@@ -520,7 +514,7 @@ class writer():
 		self.label.set_text("List opened");
 
 	def save_abbreviation(self,widget):
-		abbreviations = open("%s/data/%s/abbreviations.txt"%(data_dir,self.language),"w")
+		abbreviations = open("%s/data/%s/abbreviations.txt"%(global_var.data_dir,self.language),"w")
 		start, end = self.textbuffer.get_bounds()
 		text = self.textbuffer.get_text(start, end,False)
 		for line in text.split("\n"):
@@ -533,8 +527,8 @@ class writer():
 		self.label.set_text("Abbreviation saved");
 
 	def restore_abbreviation(self,widget):
-		abbreviations = open("%s/data/%s/abbreviations.txt"%(data_dir,self.language),"w")
-		abbreviations_default = open("%s/data/%s/abbreviations_default.txt"%(data_dir,self.language),"r")
+		abbreviations = open("%s/data/%s/abbreviations.txt"%(global_var.data_dir,self.language),"w")
+		abbreviations_default = open("%s/data/%s/abbreviations_default.txt"%(global_var.data_dir,self.language),"r")
 		abbreviations.write(abbreviations_default.read())
 		abbreviations.close()
 		abbreviations_default.close()
@@ -547,80 +541,12 @@ class writer():
 			start,end = self.textbuffer.get_bounds()
 		
 		text = self.textbuffer.get_text(start,end,False)		
-		record(text)
+		converter.record(text)
 		
 	def spell_check(self,widget):
 		spell_check.Spell_Check(self.textview,self.textbuffer,self.language,self.enchant_language)
 		
-
-class record:
-	def __init__(self,text):
-		to_convert = open("temp.txt",'w')
-		to_convert.write(text)
-		to_convert.close()
 		
-		builder = Gtk.Builder()
-		builder.add_from_file("%s/ui/audio_converter.glade" % (data_dir))
-		builder.connect_signals(self)
-		self.audio_converter_window = builder.get_object("window")
-			
-			
-			
-		self.spinbutton_speed = builder.get_object("spinbutton_speed")
-		self.spinbutton_pitch = builder.get_object("spinbutton_pitch")
-		self.spinbutton_split = builder.get_object("spinbutton_split")
-		self.spinbutton_vloume = builder.get_object("spinbutton_vloume")
-		self.spinbutton_speed.set_value(170)
-		self.spinbutton_pitch.set_value(50)
-		self.spinbutton_split.set_value(5)
-		self.spinbutton_vloume.set_value(100)
-			
-		voice_combo = builder.get_object("combobox_language_convert")
-		
-		list_store = Gtk.ListStore(str)
-		output = getoutput("espeak --voices")
-		for line in output.split("\n"):
-			list_store.append([line.split()[3]])
-		
-		voice_combo.set_model(list_store)
-		self.model_voice = voice_combo.get_model()
-		self.index_voice = voice_combo.get_active()
-		
-				
-		voice_combo.connect('changed', self.change_voice)
-		self.audio_converter_window.show()		                
-
-	def change_voice(self, voice):
-		self.model_voice = voice.get_model()
-		self.index_voice = voice.get_active()
-		
-	def close_audio_converter(self,widget,data=None):
-		self.audio_converter_window.destroy()
-		
-	def convert_to_audio(self,widget,data=None):
-		self.filename = Gtk.FileChooserDialog("Type the output wav name",None,Gtk.FileChooserAction.SAVE, (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,Gtk.STOCK_SAVE, Gtk.ResponseType.OK));
-		self.filename.set_current_folder("%s"%(os.environ['HOME']))
-		self.filename.run()
-		self.file_to_output = self.filename.get_filename()
-		self.filename.destroy()
-		Thread(target=self.record_to_wave,args=()).start()
-		self.audio_converter_window.destroy()
-
-               
-		
-	def record_to_wave(self):
-		os.system('espeak -a %s -v %s -f temp.txt -w %s.wav --split=%s -p %s -s %s' % (self.spinbutton_vloume.get_value(),self.model_voice[self.index_voice][0],self.file_to_output,self.spinbutton_split.get_value(),self.spinbutton_pitch.get_value(),self.spinbutton_speed.get_value()))
-		os.system('espeak "Conversion finish and saved to %s"' % (self.file_to_output))
-
-
-
-
-
-
-		
-
-
-
 		
 if __name__ == "__main__":
 	writer()
