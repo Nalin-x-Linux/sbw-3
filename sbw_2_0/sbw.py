@@ -31,7 +31,7 @@ from subprocess import getoutput
 from threading import Thread
 
 from sbw_2_0 import spell_check
-from sbw_2_0 import logger
+
 
 #Where the data is located
 data_dir = "/usr/share/pyshared/sbw_2_0";
@@ -120,8 +120,8 @@ class writer():
 		pangoFont = Pango.FontDescription(self.font)
 		self.textview.modify_font(pangoFont)
 		self.textview.modify_fg(Gtk.StateFlags.NORMAL, Gdk.color_parse(self.font_color))
-		self.textview.modify_bg(Gtk.StateFlags.NORMAL, Gdk.color_parse(self.background_color))					
-			
+		self.textview.modify_bg(Gtk.StateFlags.NORMAL, Gdk.color_parse(self.background_color))
+					
 		self.guibuilder.get_object("fontbutton").set_font_name(self.font)
 		self.guibuilder.get_object("colorbutton_font").set_color(Gdk.color_parse(self.font_color))
 		self.guibuilder.get_object("colorbutton_background").set_color(Gdk.color_parse(self.background_color))
@@ -135,7 +135,7 @@ class writer():
 				
 
 		
-		#self.window.maximize();
+		self.window.maximize();
 		self.textview.show_all();
 		self.window.show_all();
 		Gtk.main();
