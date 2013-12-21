@@ -112,15 +112,18 @@ class Spell_Check:
 			self.word_start.backward_word_start()
 						
 		
-		self.find_next_miss_spelled()
-		self.spell_window.show()
+		if (self.find_next_miss_spelled()):
+			self.spell_window.show()
 
 
 	def activate_treeview(self,widget, row, col):
 		model = widget.get_model()
 		text = model[row][0]
 		self.entry.set_text(text)
-		self.entry.grab_focus()  
+		self.entry.grab_focus()
+		left = self.textbuffer.get_text(self.sentence_start,self.word_start,False)
+		right = self.textbuffer.get_text(self.word_end,self.sentence_end,False) 	
+		self.context_label.set_label(self.correct_context(left+text+right))		
 	
 	def close(self,widget,data=None):
 		start,end = self.textbuffer.get_bounds()
@@ -162,14 +165,14 @@ class Spell_Check:
 			
 			self.entry.set_text("")
 			self.word = self.textbuffer.get_text(self.word_start,self.word_end,False)		
-			start=self.word_start.copy()
-			start.backward_sentence_start()
-			end=self.word_start.copy()
-			end.forward_sentence_end()
-			sentence = self.textbuffer.get_text(start,end,True)			
-
+			self.sentence_start=self.word_start.copy()
+			self.sentence_start.backward_sentence_start()
+			self.sentence_end=self.word_start.copy()
+			self.sentence_end.forward_sentence_end()
+			
+			sentence = self.textbuffer.get_text(self.sentence_start,self.sentence_end,True)
 			context = "Misspelled word {0} : -  {1}".format(self.word,sentence)
-			self.context_label.set_text(context)
+			self.context_label.set_text(self.correct_context(context))
 			self.entry.set_text(self.word)
 			
 			self.liststore.clear()
@@ -211,3 +214,30 @@ class Spell_Check:
 			#move to next word
 			self.word_start.forward_word_ends(2)
 			self.word_start.backward_word_starts(1)
+	
+	
+	def correct_context(self,text):
+		"""cut the line if it is too lengthy (more than 10 words)
+		without rearranging existing lines. This will avoid the resizing of spell window"""
+		new_text = ""
+		for line in text.split('\n'):
+			if (len(line.split(' ')) > 10):
+				new_line = ""
+				pos = 1
+				for word in line.split(" "):
+					new_line += word
+					pos += 1
+					if (pos % 10 == 0):
+						new_line += '\n'
+					else:
+						new_line += ' '
+
+				new_text += new_line
+				if (pos % 10 > 3):
+					new_text += '\n'
+			else:
+				new_text += line + '\n'
+		return new_text
+		
+			
+
