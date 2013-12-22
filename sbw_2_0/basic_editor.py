@@ -122,7 +122,25 @@ class editor():
 	def save_as(self,wedget,data=None):
 		del self.save_file_name
 		self.save(self);
-		
+	def append(self,wedget,data=None):
+		append_file_dialog = Gtk.FileChooserDialog("Select the file to append",None,Gtk.FileChooserAction.OPEN,buttons=(Gtk.STOCK_OPEN,Gtk.ResponseType.OK))
+		append_file_dialog.set_current_folder("%s"%(os.environ['HOME']))
+		append_file_dialog.run()
+		with open(append_file_dialog.get_filename()) as file:
+			text_to_append = file.read()
+			end = self.textbuffer.get_end_iter()
+			self.textbuffer.insert(end,text_to_append)
+		append_file_dialog.destroy()
+	
+	def punch(self,wedget,data=None):
+		insert_at_cursor_dialog = Gtk.FileChooserDialog("Select the file to insert at cursor",None,Gtk.FileChooserAction.OPEN,buttons=(Gtk.STOCK_OPEN,Gtk.ResponseType.OK))
+		insert_at_cursor_dialog.set_current_folder("%s"%(os.environ['HOME']))
+		insert_at_cursor_dialog.run()
+		with open(insert_at_cursor_dialog.get_filename()) as file:
+			text_to_insert_at_cursor = file.read()
+			self.textbuffer.insert_at_cursor(text_to_insert_at_cursor)
+		insert_at_cursor_dialog.destroy()
+
 	def quit(self,wedget,data=None):
 		config = configparser.ConfigParser()
 		if (config.read('%s/.sbw_2_0.cfg' % global_var.home_dir) == []):
@@ -166,3 +184,4 @@ class editor():
 	def paste(self,wedget,data=None):
 		self.clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
 		self.textbuffer.paste_clipboard(self.clipboard, None, True)
+
