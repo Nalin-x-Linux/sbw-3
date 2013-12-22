@@ -26,26 +26,7 @@ from gi.repository import Pango
 from sbw_2_0 import global_var
 
 
-
-def log(function):
-	def loged_function(*args):
-		print("Entering : ",function.__name__,args);
-		f = function(*args)
-		print("Leaving  : ",function.__name__);
-		return f
-	return loged_function
-
-
-def decallmethods(decrator):
-	def decrated_class(cls):
-		for name, m in inspect.getmembers(cls, inspect.isfunction):
-			setattr(cls,name,decrator(m))
-		return cls
-	return decrated_class
-
-
 # CHECK SPELLING
-@decallmethods(log)		
 class Spell_Check:
 	def __init__ (self,textview,textbuffer,language,enchant_language):
 		self.textbuffer = textbuffer;
