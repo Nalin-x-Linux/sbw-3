@@ -38,6 +38,16 @@
     <property name="can_focus">False</property>
     <property name="stock">gtk-goto-bottom</property>
   </object>
+  <object class="GtkImage" id="image7">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-find</property>
+  </object>
+  <object class="GtkImage" id="image8">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-find-and-replace</property>
+  </object>
   <object class="GtkTextBuffer" id="textbuffer"/>
   <object class="GtkWindow" id="window">
     <property name="can_focus">False</property>
@@ -227,6 +237,30 @@
                         <property name="use_stock">False</property>
                         <accelerator key="i" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                         <signal name="activate" handler="go_to_line" swapped="no"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="Find">
+                        <property name="label" translatable="yes">Find</property>
+                        <property name="use_action_appearance">False</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="image">image7</property>
+                        <property name="use_stock">False</property>
+                        <accelerator key="f" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                        <signal name="activate" handler="find" swapped="no"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="Find &amp; Replace">
+                        <property name="label" translatable="yes">Find &amp; Replace</property>
+                        <property name="use_action_appearance">False</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="image">image8</property>
+                        <property name="use_stock">False</property>
+                        <accelerator key="f" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_CONTROL_MASK"/>
+                        <signal name="activate" handler="find_and_replace" swapped="no"/>
                       </object>
                     </child>
                   </object>
