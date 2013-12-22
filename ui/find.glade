@@ -49,7 +49,7 @@
             <property name="hexpand">True</property>
             <property name="use_action_appearance">False</property>
             <property name="use_stock">True</property>
-            <signal name="clicked" handler="find" swapped="no"/>
+            <signal name="clicked" handler="find_next" swapped="no"/>
           </object>
           <packing>
             <property name="left_attach">0</property>
@@ -68,7 +68,7 @@
             <property name="hexpand">True</property>
             <property name="use_action_appearance">False</property>
             <property name="use_stock">True</property>
-            <signal name="clicked" handler="find" swapped="no"/>
+            <signal name="clicked" handler="find_previous" swapped="no"/>
           </object>
           <packing>
             <property name="left_attach">1</property>

@@ -186,7 +186,7 @@ class editor():
 		self.textbuffer.paste_clipboard(self.clipboard, None, True)
 		
 class find():
-	def __init__ (self,textview,textbuffer,language):
+	def __init__ (self,textview,textbuffer,language,glade_file="find"):
 		self.textbuffer = textbuffer;
 		self.textview = textview;
 				
@@ -202,19 +202,19 @@ class find():
 
 
 		#Builder And Gui
-		builder = Gtk.Builder()
-		builder.add_from_file("%s/ui/find.glade" % (global_var.data_dir))
-		self.find_window = builder.get_object("window")
-		builder.connect_signals(self)
-		self.entry = builder.get_object("entry_word")
-		self.context_label = builder.get_object("context_label")
-		self.find_window.show()
+		self.builder = Gtk.Builder()
+		self.builder.add_from_file("{0}/ui/{1}.glade".format(global_var.data_dir,glade_file))
+		self.window = self.builder.get_object("window")
+		self.builder.connect_signals(self)
+		self.entry = self.builder.get_object("entry_word")
+		self.context_label = self.builder.get_object("context_label")
+		
 				
 
 	def close(self,widget,data=None):
 		start,end = self.textbuffer.get_bounds()
 		self.textbuffer.remove_all_tags(start,end)
-		self.find_window.destroy()	
+		self.window.destroy()	
 
 	def correct_context(self,text):
 		"""cut the line if it is too lengthy (more than 10 words)
@@ -238,11 +238,17 @@ class find():
 			else:
 				new_text += line + '\n'
 		return new_text
+	
+	def find_next(self,widget,data=None):
+		self.find(True)
+
+	def find_previous(self,widget,data=None):
+		self.find(False)		
 		
-	def find(self,wedget,data=None):
+	def find(self,data):
 		word = self.entry.get_text()
 		start , end = self.textbuffer.get_bounds()
-		if (wedget.get_label() == "gtk-media-next"):
+		if (data == True):
 			self.match_start.forward_word_end()
 			results = self.match_start.forward_search(word, 0, end)
 		else:
@@ -264,3 +270,30 @@ class find():
 		else:
 			self.context_label.set_text("Word {0} Not found".format(word))
 			
+
+class find_and_replace(find):
+	def __init__(self,textview,textbuffer,language,glade_file="find_and_replace"):
+		find.__init__(self,textview,textbuffer,language,glade_file="find_and_replace")
+		self.replace_entry = self.builder.get_object("entry_replace_word")
+		
+	def replace(self,widget,data=None):
+		replace_word = self.replace_entry.get_text()
+		self.textbuffer.delete(self.match_start, self.match_end)
+		self.textbuffer.insert(self.match_end,replace_word)
+		self.match_start = self.match_end.copy()
+		self.find(True)
+	
+	def replace_all(self,widget,data=None):
+		word = self.entry.get_text()
+		replace_word = self.replace_entry.get_text()
+		end = self.textbuffer.get_end_iter()
+		while(True):
+			self.match_start.forward_word_end()
+			results = self.match_start.forward_search(word, 0, end)
+			if results:
+				self.match_start, self.match_end = results
+				self.textbuffer.delete(self.match_start, self.match_end)
+				self.textbuffer.insert(self.match_end,replace_word)
+				self.match_start = self.match_end.copy()
+			else:
+				break

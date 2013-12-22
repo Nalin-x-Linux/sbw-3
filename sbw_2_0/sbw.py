@@ -31,6 +31,8 @@ from sbw_2_0 import converter
 from sbw_2_0 import global_var
 from sbw_2_0.basic_editor import editor
 from sbw_2_0.basic_editor import find
+from sbw_2_0.basic_editor import find_and_replace
+
 
 
 class writer(editor):
@@ -410,7 +412,9 @@ class writer(editor):
 		spell_check.Spell_Check(self.textview,self.textbuffer,self.language,self.enchant_language)
 
 	def find(self,widget):
-		find(self.textview,self.textbuffer,self.language)		
+		find(self.textview,self.textbuffer,self.language).window.show()
+	def find_and_replace(self,widget):
+		find_and_replace(self.textview,self.textbuffer,self.language).window.show()				
 		
 		
 if __name__ == "__main__":
