@@ -184,4 +184,83 @@ class editor():
 	def paste(self,wedget,data=None):
 		self.clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
 		self.textbuffer.paste_clipboard(self.clipboard, None, True)
+		
+class find():
+	def __init__ (self,textview,textbuffer,language):
+		self.textbuffer = textbuffer;
+		self.textview = textview;
+				
+		mark = self.textbuffer.get_insert()
+		self.iter = self.textbuffer.get_iter_at_mark(mark)
+		self.match_start = self.iter.copy()
+		self.match_start.backward_word_start()
+		self.match_end = self.iter.copy()
+		self.match_end.forward_word_end()
+		
+		
+		self.tag = self.textbuffer.create_tag(foreground = "Blue")
 
+
+		#Builder And Gui
+		builder = Gtk.Builder()
+		builder.add_from_file("%s/ui/find.glade" % (global_var.data_dir))
+		self.find_window = builder.get_object("window")
+		builder.connect_signals(self)
+		self.entry = builder.get_object("entry_word")
+		self.context_label = builder.get_object("context_label")
+		self.find_window.show()
+				
+
+	def close(self,widget,data=None):
+		start,end = self.textbuffer.get_bounds()
+		self.textbuffer.remove_all_tags(start,end)
+		self.find_window.destroy()	
+
+	def correct_context(self,text):
+		"""cut the line if it is too lengthy (more than 10 words)
+		without rearranging existing lines. This will avoid the resizing of spell window"""
+		new_text = ""
+		for line in text.split('\n'):
+			if (len(line.split(' ')) > 10):
+				new_line = ""
+				pos = 1
+				for word in line.split(" "):
+					new_line += word
+					pos += 1
+					if (pos % 10 == 0):
+						new_line += '\n'
+					else:
+						new_line += ' '
+
+				new_text += new_line
+				if (pos % 10 > 3):
+					new_text += '\n'
+			else:
+				new_text += line + '\n'
+		return new_text
+		
+	def find(self,wedget,data=None):
+		word = self.entry.get_text()
+		start , end = self.textbuffer.get_bounds()
+		if (wedget.get_label() == "gtk-media-next"):
+			self.match_start.forward_word_end()
+			results = self.match_start.forward_search(word, 0, end)
+		else:
+			self.match_end.backward_word_start()
+			results = self.match_end.backward_search(word, 0,start)
+		
+		if results:
+			self.textbuffer.remove_all_tags(start,end)
+			self.match_start, self.match_end = results
+			self.textbuffer.place_cursor(self.match_start)
+			self.textbuffer.apply_tag(self.tag,self.match_start, self.match_end)
+			self.textview.scroll_to_iter(self.match_start, 0.2, use_align=False, xalign=0.5, yalign=0.5)
+			sentence_start=self.match_start.copy()
+			sentence_start.backward_sentence_start()
+			sentence_end=self.match_start.copy()
+			sentence_end.forward_sentence_end()
+			sentence = self.textbuffer.get_text(sentence_start,sentence_end,True)
+			self.context_label.set_text(self.correct_context(sentence))
+		else:
+			self.context_label.set_text("Word {0} Not found".format(word))
+			
