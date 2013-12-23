@@ -30,27 +30,35 @@ from gi.repository import Pango
 from sbw_2_0 import global_var
 
 class editor():
+		
 	def go_to_line(self,wedget,data=None):
 		insert_mark = self.textbuffer.get_insert()
 		offset = self.textbuffer.get_iter_at_mark(insert_mark)
-		line = offset.get_line()
-		maximum = self.textbuffer.get_line_count() 
-		adj = Gtk.Adjustment(value=1, lower=1, upper=maximum, step_incr=1, page_incr=5, page_size=0)
-		self.spinbutton_line.set_adjustment(adj)
-		self.spinbutton_line.set_value(line)		
-		self.spinbutton_line.show()
-		self.spinbutton_label.show()
-		self.spinbutton_label.set_mnemonic_widget(self.spinbutton_line)
-		self.spinbutton_line.connect("activate",self.go_to_line_function)
-		self.spinbutton_line.grab_focus()
+		current_line = offset.get_line()
+		maximum_line = self.textbuffer.get_line_count()
+		adj = Gtk.Adjustment(value=1, lower=1, upper=maximum_line, step_incr=1, page_incr=5, page_size=0) 
+		spinbutton_line = Gtk.SpinButton()
+		spinbutton_line.set_adjustment(adj)
+		spinbutton_line.set_value(current_line)		
+		spinbutton_line.show()
 
-	def go_to_line_function(self,data=None):
-		self.spinbutton_line.hide()
-		self.spinbutton_label.hide()
-		to = self.spinbutton_line.get_value_as_int()
-		iter = self.textbuffer.get_iter_at_line(to)	
-		self.textbuffer.place_cursor(iter)
-		self.textview.scroll_to_iter(iter, 0.0,False,0.0,0.0)
+		dialog =  Gtk.Dialog("Go to Line ",self.window,True,("Go", Gtk.ResponseType.ACCEPT,"Close!", Gtk.ResponseType.REJECT))
+		spinbutton_line.connect("activate",lambda x : dialog.response(Gtk.ResponseType.ACCEPT))
+		box = dialog.get_content_area();
+		box.add(spinbutton_line)
+		spinbutton_line.grab_focus()
+		dialog.show_all()
+		response = dialog.run()
+		if response == Gtk.ResponseType.ACCEPT:
+			to = spinbutton_line.get_value_as_int()
+			iter = self.textbuffer.get_iter_at_line(to)
+			self.textbuffer.place_cursor(iter)
+			self.textview.scroll_to_iter(iter, 0.0,False,0.0,0.0)
+			dialog.destroy()
+		else:
+			dialog.destroy()
+			
+				
 
 	
 	def new(self,wedget,data=None):
