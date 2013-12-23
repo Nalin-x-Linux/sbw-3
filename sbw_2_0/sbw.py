@@ -26,10 +26,10 @@ from gi.repository import Gio
 from gi.repository import GLib
 from gi.repository import Pango
 
-from sbw_2_0 import spell_check
 from sbw_2_0 import converter
 from sbw_2_0 import global_var
 from sbw_2_0.basic_editor import editor
+from sbw_2_0.basic_editor import spell_check
 from sbw_2_0.basic_editor import find
 from sbw_2_0.basic_editor import find_and_replace
 
@@ -409,7 +409,7 @@ class writer(editor):
 		converter.record(text)
 		
 	def spell_check(self,widget):
-		spell_check.Spell_Check(self.textview,self.textbuffer,self.language,self.enchant_language)
+		spell_check(self.textview,self.textbuffer,self.language,self.enchant_language)
 
 	def find(self,widget):
 		find(self.textview,self.textbuffer,self.language).window.show()
