@@ -378,12 +378,8 @@ class writer(editor):
 		self.label.set_text("Abbreviation restored");
 
 	def readme(self,wedget,data=None):
-		try:
-			readme_text = open("%s/data/%s/help.txt"%(global_var.data_dir,self.language),"r").read()
-		except FileNotFoundError:
-			pass
-		else:
-			self.textbuffer.set_text(readme_text)
+		with open("%s/data/%s/help.txt"%(global_var.data_dir,self.language) as file:
+			self.textbuffer.set_text(file.read())
 			start = self.textbuffer.get_start_iter()
 			self.textbuffer.place_cursor(start)
 			self.textbuffer.set_modified(False)
@@ -392,12 +388,7 @@ class writer(editor):
 		guibuilder_about = Gtk.Builder()
 		guibuilder_about.add_from_file("%s/ui/about.glade" % (global_var.data_dir))
 		window_about = guibuilder_about.get_object("aboutdialog")
-		guibuilder_about.connect_signals({"about_close" : self.about_close })		
 		window_about.show()
-	
-	def about_close(self,wedget,data=None):
-		wedget.destroy()	
-
 
 	def audio_converter(self,widget):
 		try:
