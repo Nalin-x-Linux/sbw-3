@@ -8,21 +8,6 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="GtkImage" id="image1">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-media-record</property>
-  </object>
-  <object class="GtkImage" id="image2">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-info</property>
-  </object>
-  <object class="GtkImage" id="image3">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-cut</property>
-  </object>
   <object class="GtkImage" id="image4">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -48,6 +33,21 @@
     <property name="can_focus">False</property>
     <property name="stock">gtk-find-and-replace</property>
   </object>
+  <object class="GtkImage" id="image1">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-media-record</property>
+  </object>
+  <object class="GtkImage" id="image2">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-info</property>
+  </object>
+  <object class="GtkImage" id="image3">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-cut</property>
+  </object>
   <object class="GtkTextBuffer" id="textbuffer"/>
   <object class="GtkWindow" id="window">
     <property name="can_focus">False</property>
@@ -55,7 +55,7 @@
     <property name="default_width">640</property>
     <property name="default_height">480</property>
     <property name="icon">Icon.png</property>
-    <signal name="delete-event" handler="quit" swapped="no"/>
+    <signal name="delete-event" handler="quit_with_saving_preferences" swapped="no"/>
     <child>
       <object class="GtkBox" id="box">
         <property name="visible">True</property>
@@ -503,7 +503,7 @@
                     <property name="label" translatable="yes">Quit</property>
                     <property name="use_underline">True</property>
                     <property name="stock_id">gtk-quit</property>
-                    <signal name="clicked" handler="quit" swapped="no"/>
+                    <signal name="clicked" handler="quit_with_saving_preferences" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>

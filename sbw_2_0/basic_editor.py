@@ -152,18 +152,6 @@ class editor():
 		insert_at_cursor_dialog.destroy()
 
 	def quit(self,wedget,data=None):
-		config = configparser.ConfigParser()
-		if (config.read('%s/.sbw_2_0.cfg' % global_var.home_dir) == []):
-			config.add_section('cfg')			
-		config.set('cfg', 'font',self.font)
-		config.set('cfg', 'font_color',self.font_color)
-		config.set('cfg', 'background_color',self.background_color)			
-		config.set('cfg', 'line_limit',str(self.line_limit))
-		config.set('cfg', 'simple_mode',str(self.simple_mode))
-		config.set('cfg', 'auto_new_line',str(self.auto_new_line))
-		with open('%s/.sbw_2_0.cfg'% global_var.home_dir , 'w') as configfile:
-			config.write(configfile)
-			
 		if self.textbuffer.get_modified() == True:
 			dialog =  Gtk.Dialog(None,self.window,1,
 			("Close without saving",Gtk.ResponseType.YES,"Save", Gtk.ResponseType.NO,"Cancel", Gtk.ResponseType.CANCEL))			

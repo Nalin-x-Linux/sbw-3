@@ -378,7 +378,7 @@ class writer(editor):
 		self.label.set_text("Abbreviation restored");
 
 	def readme(self,wedget,data=None):
-		with open("%s/data/%s/help.txt"%(global_var.data_dir,self.language) as file:
+		with open("{0}/data/%s/help.txt".format(global_var.data_dir,self.language)) as file:
 			self.textbuffer.set_text(file.read())
 			start = self.textbuffer.get_start_iter()
 			self.textbuffer.place_cursor(start)
@@ -406,7 +406,20 @@ class writer(editor):
 		find(self.textview,self.textbuffer,self.language).window.show()
 	def find_and_replace(self,widget):
 		find_and_replace(self.textview,self.textbuffer,self.language).window.show()				
-		
+
+	def quit_with_saving_preferences(self,data,widget=None):
+		config = configparser.ConfigParser()
+		if (config.read('%s/.sbw_2_0.cfg' % global_var.home_dir) == []):
+			config.add_section('cfg')			
+		config.set('cfg', 'font',self.font)
+		config.set('cfg', 'font_color',self.font_color)
+		config.set('cfg', 'background_color',self.background_color)			
+		config.set('cfg', 'line_limit',str(self.line_limit))
+		config.set('cfg', 'simple_mode',str(self.simple_mode))
+		config.set('cfg', 'auto_new_line',str(self.auto_new_line))
+		with open('%s/.sbw_2_0.cfg'% global_var.home_dir , 'w') as configfile:
+			config.write(configfile)
+		self.quit(self,widget)
 		
 if __name__ == "__main__":
 	writer()
