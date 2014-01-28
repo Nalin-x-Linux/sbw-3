@@ -1,16 +1,34 @@
+###########################################################################
+#    SBW - Sharada-Braille-Writer
+#    Copyright (C) 2012-2014 Nalin.x.Linux GPL-3
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+###########################################################################
+
 # yum install  python3-devel
 # yum install  rpm-build
 
 Name:           sharada_braille_writer
-Version:        2.0
+Version:        2.1
 Release:        0%{?dist}
 Epoch:          1
 Summary:        Sharada braille writer is a six key braille writer
 
 Group:          Applications/Editors
 License:        GPLv3+
-URL:            https://codeload.github.com/Nalin-x-Linux/sbw/zip/sharada_braille_writer-2.0.zip
-Source0:        https://codeload.github.com/Nalin-x-Linux/sbw/zip/sharada_braille_writer-2.0.zip
+URL:            https://codeload.github.com/Nalin-x-Linux/sbw/zip/sharada_braille_writer-2.1.zip
+Source0:        https://codeload.github.com/Nalin-x-Linux/sbw/zip/sharada_braille_writer-2.1.zip
 
 BuildArch:      noarch
 Requires:       espeak 
@@ -24,35 +42,24 @@ Requires:	PackageKit-gtk3-module
  braille dots respectively. By pressing "f" and "s" together will
  produce letter "k" and like.
 
+
 %prep
 %setup -q
 
-%install
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/pyshared/sbw_2_0/
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/applications/
-mkdir -p $RPM_BUILD_ROOT/%{python3_sitelib}/
-mkdir -p $RPM_BUILD_ROOT/%{_bindir}/
+%build
+python3 setup.py build
 
-cp -r data $RPM_BUILD_ROOT/%{_datadir}/pyshared/sbw_2_0/
-cp -r ui $RPM_BUILD_ROOT/%{_datadir}/pyshared/sbw_2_0/
-cp -r sbw_2_0 $RPM_BUILD_ROOT/%{python3_sitelib}/
-cp sharada-braille-writer-2.0.desktop $RPM_BUILD_ROOT/%{_datadir}/applications/
-cp sharada-braille-writer-2.0 $RPM_BUILD_ROOT/%{_bindir}/
+%install
+python3 setup.py install -O1 --skip-build --prefix=%{_prefix} --root=%{buildroot}
 
 #abbreviations.txt should be editable for user
-chmod -R 777 $RPM_BUILD_ROOT/%{_datadir}/pyshared/sbw_2_0/data/
+chmod -R 777 $RPM_BUILD_ROOT/%{_datadir}/pyshared/sbw2/data/
 
 
 %files
 %defattr(-,root,root,-)
-%{_datadir}/pyshared/sbw_2_0/*
-%{python3_sitelib}/sbw_2_0/*
+%{_datadir}/pyshared/sbw2/*
+%{python3_sitelib}/sbw2/*
 %{_datadir}/applications/*
 %{_bindir}/*
-
-
-
-
-
-%clean
-rm -rf $RPM_BUILD_ROOT
+%{python3_sitelib}/sbw2-*
