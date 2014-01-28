@@ -3,7 +3,7 @@ Priority: optional
 Section: gnome
 Installed-Size: 520
 Architecture: all
-Version: 2.0
+Version: 2.1
 Depends: python3-gi,espeak,python3-enchant
 Provides: Nalin.x.Linux
 Maintainer: Nalin.x.Linux <Nalin.x.Linux@gmail.com>
