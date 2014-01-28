@@ -3,7 +3,7 @@
 import sys
 
 #Importing Sbw Modules
-from sbw_2_0.sbw import writer
+from sbw2.sbw import writer
 
 if __name__ == '__main__':
 	if (len(sys.argv) == 2):

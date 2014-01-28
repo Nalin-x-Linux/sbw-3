@@ -25,7 +25,7 @@ import os
 from subprocess import getoutput
 from threading import Thread
 
-from sbw_2_0 import global_var
+from sbw2 import global_var
 
 
 class record:

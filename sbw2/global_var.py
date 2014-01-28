@@ -20,7 +20,7 @@
 import os
 
 #Where the data is located
-data_dir = "/usr/share/pyshared/sbw_2_0";
+data_dir = "/usr/share/pyshared/sbw2";
 
 #Changing directory to Home folder
 home_dir = os.environ['HOME']

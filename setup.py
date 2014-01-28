@@ -19,6 +19,4 @@ setup(name='sbw2',
       ('share/pyshared/sbw2/data/',glob('share/pyshared/sbw2/data/languages.txt')),
       ('share/pyshared/sbw2/ui/',glob('share/pyshared/sbw2/ui/*')),
       ('bin/',glob('bin/*'))]
-      
-      #data_files=[('share/lios/ui/',glob('share/lios/ui/*')),('share/lios/Data/',['share/lios/Data/Readme']),('share/applications/',['share/applications/Lios.desktop']),('bin',['bin/lios'])]
       )

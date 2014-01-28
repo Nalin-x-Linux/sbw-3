@@ -27,7 +27,7 @@ from gi.repository import Gio
 from gi.repository import GLib
 from gi.repository import Pango
 
-from sbw_2_0 import global_var
+from sbw2 import global_var
 
 class editor():
 		

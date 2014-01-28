@@ -26,12 +26,12 @@ from gi.repository import Gio
 from gi.repository import GLib
 from gi.repository import Pango
 
-from sbw_2_0 import converter
-from sbw_2_0 import global_var
-from sbw_2_0.basic_editor import editor
-from sbw_2_0.basic_editor import spell_check
-from sbw_2_0.basic_editor import find
-from sbw_2_0.basic_editor import find_and_replace
+from sbw2 import converter
+from sbw2 import global_var
+from sbw2.basic_editor import editor
+from sbw2.basic_editor import spell_check
+from sbw2.basic_editor import find
+from sbw2.basic_editor import find_and_replace
 
 
 
