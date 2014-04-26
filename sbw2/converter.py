@@ -1,5 +1,3 @@
-# coding: latin-1
-
 ###########################################################################
 #    SBW - Sharada-Braille-Writer
 #    Copyright (C) 2012-2014 Nalin.x.Linux GPL-3
@@ -27,6 +25,8 @@ from threading import Thread
 
 from sbw2 import global_var
 
+import gettext
+_ = gettext.gettext
 
 class record:
 	def __init__(self,text):
@@ -73,7 +73,7 @@ class record:
 		self.audio_converter_window.destroy()
 		
 	def convert_to_audio(self,widget,data=None):
-		self.filename = Gtk.FileChooserDialog("Type the output wav name",None,Gtk.FileChooserAction.SAVE, (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,Gtk.STOCK_SAVE, Gtk.ResponseType.OK));
+		self.filename = Gtk.FileChooserDialog(_("Type the output wav name"),None,Gtk.FileChooserAction.SAVE, (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,Gtk.STOCK_SAVE, Gtk.ResponseType.OK));
 		self.filename.set_current_folder(global_var.home_dir)
 		self.filename.run()
 		self.file_to_output = self.filename.get_filename()

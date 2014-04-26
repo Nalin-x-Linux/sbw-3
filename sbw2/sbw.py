@@ -1,5 +1,3 @@
-# coding: latin-1
-
 ###########################################################################
 #    SBW - Sharada-Braille-Writer
 #    Copyright (C) 2012-2014 Nalin.x.Linux GPL-3
@@ -33,6 +31,9 @@ from sbw2.basic_editor import spell_check
 from sbw2.basic_editor import find
 from sbw2.basic_editor import find_and_replace
 
+import gettext
+_ = gettext.gettext
+gettext.textdomain('sbw2')
 
 
 class writer(editor):
@@ -158,7 +159,7 @@ class writer(editor):
 					start = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());
 					end = start.copy()
 					start.backward_word_start()
-					self.label.set_text("%s deleted" % self.textbuffer.get_text(start,end,True));
+					self.label.set_text(_("{} deleted").format(self.textbuffer.get_text(start,end,True)));
 					self.textbuffer.delete(start, end)
 					
 					
@@ -199,16 +200,16 @@ class writer(editor):
 					
 					if (event.hardware_keycode == 36):
 						iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());
-						self.label.set_text("new line %d" % (iter.get_line()+1));
+						self.label.set_text(_("new line {}").format(iter.get_line()+1));
 					else:
 						#Line limit info
 						iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());	
 						if (iter.get_chars_in_line() >= self.line_limit):
 							if (self.auto_new_line):
 								self.textbuffer.insert_at_cursor("\n");
-								self.label.set_text("new line");
+								self.label.set_text(_("new line"));
 							else:
-								self.label.set_text("Limit exceeded %s" % iter.get_chars_in_line());
+								self.label.set_text(_("Limit exceeded {}").format(iter.get_chars_in_line()));
 					
 				
 				# ; for punctuations
@@ -232,7 +233,7 @@ class writer(editor):
 				elif (event.hardware_keycode == 49):
 					self.textbuffer.insert_at_cursor('\t');
 					iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());
-					self.label.set_text("Tab at %s" % iter.get_line_offset());					
+					self.label.set_text(_("Tab at {}").format(iter.get_line_offset()));					
 				elif (event.hardware_keycode == 64):
 					self.braille_letter_map_pos = 0;
 				elif (event.hardware_keycode == 108):
@@ -253,7 +254,7 @@ class writer(editor):
 		
 	def load_map(self,language_with_code):
 		self.language = language_with_code.split()[0]
-		self.label.set_text("%s loded" % self.language);
+		self.label.set_text(_("{} loaded").format(self.language));
 		self.enchant_language = language_with_code.split()[1]
 		print ("loading Map for language : %s" %self.language)
 		self.map = {}
@@ -312,17 +313,17 @@ class writer(editor):
 	def backspace(self,move):
 		if (self.textbuffer.get_has_selection()):
 			self.textbuffer.delete_selection(True,True)
-			self.label.set_text("Selection Deleted");
+			self.label.set_text(_("Selection Deleted"));
 		else:
 			iter = self.textbuffer.get_iter_at_mark(self.textbuffer.get_insert());
 			start = iter.copy()
 			if(move == 1 and not iter.is_end()):
 				iter.forward_char()
-				self.label.set_text("%s at %d deleted" % (self.textbuffer.get_text(start,iter,True),iter.get_line_offset() ));
+				self.label.set_text(_("{} at {} deleted").format(self.textbuffer.get_text(start,iter,True),iter.get_line_offset() ));
 				self.textbuffer.backspace(iter,True,True);
 			elif(move == -1):
 				start.backward_char();
-				self.label.set_text("%s at %d deleted" % (self.textbuffer.get_text(start,iter,True),iter.get_line_offset() ));
+				self.label.set_text(_("{} at {} deleted").format(self.textbuffer.get_text(start,iter,True),iter.get_line_offset() ));
 				self.textbuffer.backspace(iter,True,True);
 
 		
@@ -353,7 +354,7 @@ class writer(editor):
 		self.textbuffer.place_cursor(self.textbuffer.get_end_iter())
 		abbreviations.close()
 		self.textbuffer.set_modified(False)
-		self.label.set_text("List opened");
+		self.label.set_text(_("List opened"));
 
 	def save_abbreviation(self,widget):
 		abbreviations = open("%s/data/%s/abbreviations.txt"%(global_var.data_dir,self.language),"w")
@@ -366,7 +367,7 @@ class writer(editor):
 		abbreviations.close()
 		self.load_abbrivation();
 		self.textbuffer.set_modified(False)
-		self.label.set_text("Abbreviation saved");
+		self.label.set_text(_("Abbreviation saved"));
 
 	def restore_abbreviation(self,widget):
 		abbreviations = open("%s/data/%s/abbreviations.txt"%(global_var.data_dir,self.language),"w")
@@ -375,7 +376,7 @@ class writer(editor):
 		abbreviations.close()
 		abbreviations_default.close()
 		self.load_abbrivation();
-		self.label.set_text("Abbreviation restored");
+		self.label.set_text(_("Abbreviation restored"));
 
 	def readme(self,wedget,data=None):
 		with open("{0}/data/%s/help.txt".format(global_var.data_dir,self.language)) as file:

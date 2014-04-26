@@ -1,5 +1,3 @@
-# coding: latin-1
-
 ###########################################################################
 #    SBW - Sharada-Braille-Writer
 #    Copyright (C) 2012-2014 Nalin.x.Linux GPL-3
@@ -18,6 +16,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ###########################################################################
 import os
+import gettext
+_ = gettext.gettext
+
 
 #Where the data is located
 data_dir = "/usr/share/pyshared/sbw2";

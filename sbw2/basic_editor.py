@@ -1,5 +1,3 @@
-# coding: latin-1
-
 ###########################################################################
 #    SBW - Sharada-Braille-Writer
 #    Copyright (C) 2012-2014 Nalin.x.Linux GPL-3
@@ -29,6 +27,9 @@ from gi.repository import Pango
 
 from sbw2 import global_var
 
+import gettext
+_ = gettext.gettext
+
 class editor():
 		
 	def go_to_line(self,wedget,data=None):
@@ -42,7 +43,7 @@ class editor():
 		spinbutton_line.set_value(current_line)		
 		spinbutton_line.show()
 
-		dialog =  Gtk.Dialog("Go to Line ",self.window,True,("Go", Gtk.ResponseType.ACCEPT,"Close!", Gtk.ResponseType.REJECT))
+		dialog =  Gtk.Dialog(_("Go to Line "),self.window,True,(_("Go"), Gtk.ResponseType.ACCEPT,_("Close!"), Gtk.ResponseType.REJECT))
 		spinbutton_line.connect("activate",lambda x : dialog.response(Gtk.ResponseType.ACCEPT))
 		box = dialog.get_content_area();
 		box.add(spinbutton_line)
@@ -63,10 +64,10 @@ class editor():
 	
 	def new(self,wedget,data=None):
 		if (self.textbuffer.get_modified() == True):
-			dialog =  Gtk.Dialog("Start new without saving ?",self.window,True,
-			("Save", Gtk.ResponseType.ACCEPT,"Start-New!", Gtk.ResponseType.REJECT))                           						
+			dialog =  Gtk.Dialog(_("Start new without saving ?"),self.window,True,
+			(_("Save"), Gtk.ResponseType.ACCEPT,_("Start-New!"), Gtk.ResponseType.REJECT))                           						
 
-			label = Gtk.Label("Start new without saving ?")
+			label = Gtk.Label(_("Start new without saving ?"))
 			box = dialog.get_content_area();
 			box.add(label)
 			dialog.show_all()
@@ -81,7 +82,7 @@ class editor():
 		self.label.set_text("New");
 
 	def open(self,wedget,data=None):
-		open_file = Gtk.FileChooserDialog("Select the file to open",None,Gtk.FileChooserAction.OPEN,buttons=(Gtk.STOCK_OPEN,Gtk.ResponseType.OK))
+		open_file = Gtk.FileChooserDialog(_("Select the file to open"),None,Gtk.FileChooserAction.OPEN,buttons=(Gtk.STOCK_OPEN,Gtk.ResponseType.OK))
 		open_file.set_current_folder("%s"%(os.environ['HOME']))
 		response = open_file.run()
 		if response == Gtk.ResponseType.OK:
@@ -103,7 +104,7 @@ class editor():
 		try:
 			self.save_file_name
 		except AttributeError:
-			save_file = Gtk.FileChooserDialog("Save ",None,Gtk.FileChooserAction.SAVE,
+			save_file = Gtk.FileChooserDialog(_("Save"),None,Gtk.FileChooserAction.SAVE,
 		                    buttons=(Gtk.STOCK_SAVE,Gtk.ResponseType.OK))    
 			save_file.set_current_folder("%s"%(os.environ['HOME']))
 			save_file.set_current_name(text[0:10]);
@@ -116,7 +117,7 @@ class editor():
 			if response == Gtk.ResponseType.OK:
 				self.save_file_name = "%s"%(save_file.get_filename())
 				open("%s" %(self.save_file_name),'w').write(text)
-				self.label.set_text("Text saved to %s" % self.save_file_name);
+				self.label.set_text(_("Text saved to {}").format(self.save_file_name));
 				self.textbuffer.set_modified(False)	
 				save_file.destroy()
 				return True
@@ -125,7 +126,7 @@ class editor():
 				return False
 		else:
 			open("%s" %(self.save_file_name),'w').write(text)
-			self.label.set_text("Text saved to %s" % self.save_file_name);	
+			self.label.set_text(_("Text saved to {}").format(self.save_file_name));	
 			self.textbuffer.set_modified(False)
 			return True		
 
@@ -133,7 +134,7 @@ class editor():
 		del self.save_file_name
 		self.save(self);
 	def append(self,wedget,data=None):
-		append_file_dialog = Gtk.FileChooserDialog("Select the file to append",None,Gtk.FileChooserAction.OPEN,buttons=(Gtk.STOCK_OPEN,Gtk.ResponseType.OK))
+		append_file_dialog = Gtk.FileChooserDialog(_("Select the file to append"),None,Gtk.FileChooserAction.OPEN,buttons=(Gtk.STOCK_OPEN,Gtk.ResponseType.OK))
 		append_file_dialog.set_current_folder("%s"%(os.environ['HOME']))
 		append_file_dialog.run()
 		with open(append_file_dialog.get_filename()) as file:
@@ -143,7 +144,7 @@ class editor():
 		append_file_dialog.destroy()
 	
 	def punch(self,wedget,data=None):
-		insert_at_cursor_dialog = Gtk.FileChooserDialog("Select the file to insert at cursor",None,Gtk.FileChooserAction.OPEN,buttons=(Gtk.STOCK_OPEN,Gtk.ResponseType.OK))
+		insert_at_cursor_dialog = Gtk.FileChooserDialog(_("Select the file to insert at cursor"),None,Gtk.FileChooserAction.OPEN,buttons=(Gtk.STOCK_OPEN,Gtk.ResponseType.OK))
 		insert_at_cursor_dialog.set_current_folder("%s"%(os.environ['HOME']))
 		insert_at_cursor_dialog.run()
 		with open(insert_at_cursor_dialog.get_filename()) as file:
@@ -154,8 +155,8 @@ class editor():
 	def quit(self,wedget,data=None):
 		if self.textbuffer.get_modified() == True:
 			dialog =  Gtk.Dialog(None,self.window,1,
-			("Close without saving",Gtk.ResponseType.YES,"Save", Gtk.ResponseType.NO,"Cancel", Gtk.ResponseType.CANCEL))			
-			label = Gtk.Label("Close without saving ?.")
+			(_("Close without saving"),Gtk.ResponseType.YES,_("Save"), Gtk.ResponseType.NO,_("Cancel"), Gtk.ResponseType.CANCEL))			
+			label = Gtk.Label(_("Close without saving ?."))
 			box = dialog.get_content_area();
 			box.add(label)
 			dialog.show_all()
@@ -266,7 +267,7 @@ class find():
 			sentence = self.textbuffer.get_text(sentence_start,sentence_end,True)
 			self.context_label.set_text(self.correct_context(sentence))
 		else:
-			self.context_label.set_text("Word {0} Not found".format(word))
+			self.context_label.set_text(_("Word {0} Not found").format(word))
 			
 
 class find_and_replace(find):
@@ -306,8 +307,8 @@ class spell_check:
 		try:
 			self.dict = enchant.Dict(enchant_language)
 		except:
-			dialog = Gtk.MessageDialog(None, 0, Gtk.MessageType.ERROR,Gtk.ButtonsType.CANCEL, "Dict not found!")
-			dialog.format_secondary_text("Please install the aspell dict for your language({0})".format(enchant_language))
+			dialog = Gtk.MessageDialog(None, 0, Gtk.MessageType.ERROR,Gtk.ButtonsType.CANCEL, _("Dict not found!"))
+			dialog.format_secondary_text(_("Please install the aspell dict for your language({0})").format(enchant_language))
 			dialog.run()
 			dialog.destroy()
 			return
@@ -327,11 +328,11 @@ class spell_check:
 		self.treeview.connect("row-activated",self.activate_treeview)
 		
 		self.treeview.set_model(self.liststore)
-		column = Gtk.TreeViewColumn("Suggestions : ")
+		column = Gtk.TreeViewColumn(_("Suggestions : "))
 		self.treeview.append_column(column)		
 		cell = Gtk.CellRendererText()
 		column.pack_start(cell, False)
-		column.add_attribute(cell, "text", 0)
+		column.add_attribute(cell, _("text"), 0)
 				
 		#user dict for change all
 		self.user_dict={}
@@ -422,7 +423,7 @@ class spell_check:
 			self.sentence_end.forward_sentence_end()
 			
 			sentence = self.textbuffer.get_text(self.sentence_start,self.sentence_end,True)
-			context = "Misspelled word {0} : -  {1}".format(self.word,sentence)
+			context = _("Misspelled word {0} : -  {1}").format(self.word,sentence)
 			self.context_label.set_text(self.correct_context(context))
 			self.entry.set_text(self.word)
 			
