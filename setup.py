@@ -18,5 +18,9 @@ setup(name='sbw2',
       ('share/pyshared/sbw2/data/spanish/',glob('share/pyshared/sbw2/data/spanish/*')),
       ('share/pyshared/sbw2/data/',glob('share/pyshared/sbw2/data/languages.txt')),
       ('share/pyshared/sbw2/ui/',glob('share/pyshared/sbw2/ui/*')),
-      ('bin/',glob('bin/*'))]
-      )
+      ('bin/',glob('bin/*')),
+      ('share/locale-langpack/hi/LC_MESSAGES/',glob('share/locale-langpack/hi/LC_MESSAGES/*')),
+      ('share/locale-langpack/ml/LC_MESSAGES/',glob('share/locale-langpack/ml/LC_MESSAGES/*')),
+      ('share/locale-langpack/kn/LC_MESSAGES/',glob('share/locale-langpack/kn/LC_MESSAGES/*')),
+      ('share/locale-langpack/es/LC_MESSAGES/',glob('share/locale-langpack/es/LC_MESSAGES/*')),
+      ('share/locale-langpack/ta/LC_MESSAGES/',glob('share/locale-langpack/ta/LC_MESSAGES/*'))])
