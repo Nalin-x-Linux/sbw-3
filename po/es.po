@@ -1,0 +1,388 @@
+# Spanish translations for sbw package.
+# Copyright (C) 2014 THE sbw'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the sbw package.
+# linux <linux@ubuntu>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: sbw 3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-26 14:41+0530\n"
+"PO-Revision-Date: 2014-04-26 15:04+0530\n"
+"Last-Translator: linux <linux@ubuntu>\n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: sbw2/basic_editor.py:46
+msgid "Go to Line "
+msgstr ""
+
+#: sbw2/basic_editor.py:46
+msgid "Go"
+msgstr ""
+
+#: sbw2/basic_editor.py:46
+msgid "Close!"
+msgstr ""
+
+#: sbw2/basic_editor.py:67 sbw2/basic_editor.py:70
+msgid "Start new without saving ?"
+msgstr ""
+
+#: sbw2/basic_editor.py:68 sbw2/basic_editor.py:107 sbw2/basic_editor.py:158
+#: share/pyshared/sbw2/ui/ui.glade:306 share/pyshared/sbw2/ui/ui.glade:455
+msgid "Save"
+msgstr ""
+
+#: sbw2/basic_editor.py:68
+msgid "Start-New!"
+msgstr ""
+
+#: sbw2/basic_editor.py:85
+msgid "Select the file to open"
+msgstr ""
+
+#: sbw2/basic_editor.py:120 sbw2/basic_editor.py:129
+msgid "Text saved to {}"
+msgstr ""
+
+#: sbw2/basic_editor.py:137
+msgid "Select the file to append"
+msgstr ""
+
+#: sbw2/basic_editor.py:147
+msgid "Select the file to insert at cursor"
+msgstr ""
+
+#: sbw2/basic_editor.py:158
+msgid "Close without saving"
+msgstr ""
+
+#: sbw2/basic_editor.py:158
+msgid "Cancel"
+msgstr ""
+
+#: sbw2/basic_editor.py:159
+msgid "Close without saving ?."
+msgstr ""
+
+#: sbw2/basic_editor.py:270
+#, python-brace-format
+msgid "Word {0} Not found"
+msgstr ""
+
+#: sbw2/basic_editor.py:310
+msgid "Dict not found!"
+msgstr ""
+
+#: sbw2/basic_editor.py:311
+#, python-brace-format
+msgid "Please install the aspell dict for your language({0})"
+msgstr ""
+
+#: sbw2/basic_editor.py:331
+msgid "Suggestions : "
+msgstr ""
+
+#: sbw2/basic_editor.py:335
+msgid "text"
+msgstr ""
+
+#: sbw2/basic_editor.py:426
+#, python-brace-format
+msgid "Misspelled word {0} : -  {1}"
+msgstr ""
+
+#: sbw2/converter.py:76
+msgid "Type the output wav name"
+msgstr ""
+
+#: sbw2/sbw.py:162
+msgid "{} deleted"
+msgstr ""
+
+#: sbw2/sbw.py:203
+msgid "new line {}"
+msgstr ""
+
+#: sbw2/sbw.py:210
+msgid "new line"
+msgstr ""
+
+#: sbw2/sbw.py:212
+msgid "Limit exceeded {}"
+msgstr ""
+
+#: sbw2/sbw.py:236
+msgid "Tab at {}"
+msgstr ""
+
+#: sbw2/sbw.py:257
+msgid "{} loaded"
+msgstr ""
+
+#: sbw2/sbw.py:316
+msgid "Selection Deleted"
+msgstr ""
+
+#: sbw2/sbw.py:322 sbw2/sbw.py:326
+msgid "{} at {} deleted"
+msgstr ""
+
+#: sbw2/sbw.py:357
+msgid "List opened"
+msgstr ""
+
+#: sbw2/sbw.py:370
+msgid "Abbreviation saved"
+msgstr ""
+
+#: sbw2/sbw.py:379
+msgid "Abbreviation restored"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/about.glade:7
+msgid "About Sharada Braille Writer 2.0"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/about.glade:12
+msgid ""
+"Copyright © 2011-2013 Nalin.x.Linux\n"
+"Supported by S-C-E-R-T and Keltron"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/about.glade:14
+msgid ""
+"Sharada braille writer is a six key approach to producing print materials.\n"
+" letters f, d, s, j, k, l represent 1 2 3 4 5 6 of the braille dots "
+"respectively.\n"
+" By pressing f and s together will produce letter k and like."
+msgstr ""
+
+#: share/pyshared/sbw2/ui/about.glade:18
+msgid "Visit S-B-W Home page"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/about.glade:19
+msgid "GPL3"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/about.glade:54
+msgid "Dedicated to my mother Sharada"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/audio_converter.glade:34
+msgid "Audio-Converter"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/audio_converter.glade:46
+msgid "<span size = 'xx-large'><b>Lios-Audio-Converter</b></span>"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/audio_converter.glade:57
+msgid "<b><span size = 'large'>Speed (Word Per Minute)   : </span></b>"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/audio_converter.glade:88
+msgid "<b><span size = 'large'>Pitch    : </span></b>"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/audio_converter.glade:103
+msgid "<b><span size = 'large'>Split time(Per Minute)  : </span></b>"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/audio_converter.glade:166
+msgid "Convert"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/audio_converter.glade:181
+#: share/pyshared/sbw2/ui/find_and_replace.glade:108
+#: share/pyshared/sbw2/ui/Spell.glade:122
+msgid "Close"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/audio_converter.glade:199
+msgid "<b><span size = 'large'>Language </span></b>"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/audio_converter.glade:214
+msgid "<b><span size = 'large'>Volume</span></b>"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/find_and_replace.glade:8
+msgid "Lios-Find-&-Replace"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/find_and_replace.glade:20
+#: share/pyshared/sbw2/ui/find.glade:19
+msgid "Search for :"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/find_and_replace.glade:29
+msgid "Replace with :"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/find_and_replace.glade:90
+msgid "Replace"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/find_and_replace.glade:125
+msgid "Replace-All"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/find_and_replace.glade:178
+#: share/pyshared/sbw2/ui/find.glade:105
+msgid "context_label"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/find.glade:82
+msgid "_Close"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/Spell.glade:6
+msgid "Spell-Checker"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/Spell.glade:21
+msgid "<b><span size = 'large'>Misspelled Word</span></b>"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/Spell.glade:49
+msgid "Change"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/Spell.glade:66
+msgid "Change-all"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/Spell.glade:84
+msgid "Ignore"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/Spell.glade:103
+msgid "Ignore-all"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/Spell.glade:160
+msgid "Delete"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/Spell.glade:180
+msgid "label"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:54
+msgid "Sharada Braille Writer 2.0"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:73
+msgid "_File"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:105
+msgid "Append"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:116
+msgid "Punch"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:176
+msgid "Edit"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:184
+msgid "Cut"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:232
+msgid "Go-to-line"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:244
+msgid "Find"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:256
+msgid "Find & Replace"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:275
+msgid "_Language"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:284
+msgid "Abbreviation"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:295 share/pyshared/sbw2/ui/ui.glade:439
+msgid "Open"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:317
+msgid "Restore"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:332
+msgid "_Tools"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:370
+msgid "Help"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:389
+msgid "Readme"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:423
+msgid "New"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:471
+msgid "Spell-Check"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:487
+msgid "About"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:503
+msgid "Quit"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:523
+msgid "Line : "
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:548
+msgid "Welcome to SBW-2.0"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:595
+msgid "Font   "
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:637
+msgid "Color   "
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:677
+msgid "Background Color   "
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:717
+msgid "Line Limit   "
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:754
+msgid "Simple Mode"
+msgstr ""
+
+#: share/pyshared/sbw2/ui/ui.glade:783
+msgid "Auto New Line"
+msgstr ""
