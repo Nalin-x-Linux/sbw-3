@@ -8,151 +8,154 @@ msgstr ""
 "Project-Id-Version: sbw 3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-04-26 14:41+0530\n"
-"PO-Revision-Date: 2014-04-26 15:05+0530\n"
+"PO-Revision-Date: 2014-05-05 12:09+0530\n"
 "Last-Translator: linux <sath.linux@gmail.com>\n"
 "Language-Team: Malayalam\n"
 "Language: ml\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: sbw2/basic_editor.py:46
 msgid "Go to Line "
-msgstr ""
+msgstr "വരിയിലേക്കു് പോവുക"
 
 #: sbw2/basic_editor.py:46
 msgid "Go"
-msgstr ""
+msgstr "പോവുക"
 
 #: sbw2/basic_editor.py:46
 msgid "Close!"
-msgstr ""
+msgstr "അടക്കു!"
 
 #: sbw2/basic_editor.py:67 sbw2/basic_editor.py:70
 msgid "Start new without saving ?"
-msgstr ""
+msgstr "ഇതു് സൂക്ഷിക്കാതെ പുതിയതു് തുടങ്ങണോ ?"
 
 #: sbw2/basic_editor.py:68 sbw2/basic_editor.py:107 sbw2/basic_editor.py:158
 #: share/pyshared/sbw2/ui/ui.glade:306 share/pyshared/sbw2/ui/ui.glade:455
 msgid "Save"
-msgstr ""
+msgstr "സൂക്ഷിക്കുക"
 
 #: sbw2/basic_editor.py:68
 msgid "Start-New!"
-msgstr ""
+msgstr "പുതിയതു് തുടങ്ങൂ!"
 
 #: sbw2/basic_editor.py:85
 msgid "Select the file to open"
-msgstr ""
+msgstr "തുറക്കേണ്ട രേഖ തിരഞ്ഞെടുക്കൂ"
 
 #: sbw2/basic_editor.py:120 sbw2/basic_editor.py:129
 msgid "Text saved to {}"
-msgstr ""
+msgstr "{}-ലേക്കു് ഉള്ളടക്കും ശേഖരിച്ചു "
 
 #: sbw2/basic_editor.py:137
 msgid "Select the file to append"
-msgstr ""
+msgstr "കൂട്ടിച്ചേർക്കാനുള്ള രേഖ തിരഞ്ഞെടുക്കൂ"
 
 #: sbw2/basic_editor.py:147
 msgid "Select the file to insert at cursor"
-msgstr ""
+msgstr "ഇവിടെ തിരുകി ചേർക്കാനുള്ള രേഖ തിരഞ്ഞെടുക്കൂ"
 
 #: sbw2/basic_editor.py:158
 msgid "Close without saving"
-msgstr ""
+msgstr "സുക്ഷിക്കാതെ അടക്കൂ"
 
 #: sbw2/basic_editor.py:158
 msgid "Cancel"
-msgstr ""
+msgstr "റദ്ദാക്കു!"
 
 #: sbw2/basic_editor.py:159
 msgid "Close without saving ?."
-msgstr ""
+msgstr "സൂക്ഷിക്കാതെ അടക്കണോ ?"
 
 #: sbw2/basic_editor.py:270
 #, python-brace-format
 msgid "Word {0} Not found"
-msgstr ""
+msgstr "{0} എന്ന വാക്കു് കണ്ടില്ല"
 
 #: sbw2/basic_editor.py:310
 msgid "Dict not found!"
-msgstr ""
+msgstr "നിഘണ്ടു കണ്ടില്ല"
 
 #: sbw2/basic_editor.py:311
 #, python-brace-format
 msgid "Please install the aspell dict for your language({0})"
-msgstr ""
+msgstr "ദയവായി നിങ്ങളുടെ ഭാഷയുടെ ({0}) ആസ്പെൽ നിഘണ്ടു പ്രതിഷ്ഠിക്കൂ "
 
 #: sbw2/basic_editor.py:331
 msgid "Suggestions : "
-msgstr ""
+msgstr "നിർദ്ദേശങ്ങൾ :"
 
 #: sbw2/basic_editor.py:335
 msgid "text"
-msgstr ""
+msgstr "ഉള്ളടക്കം"
 
 #: sbw2/basic_editor.py:426
 #, python-brace-format
-msgid "Misspelled word {0} : -  {1}"
-msgstr ""
+msgid "Misspelled word {0} : - {1}"
+msgstr "അക്ഷരത്തെറ്റു് {0} : - {1}"
 
 #: sbw2/converter.py:76
 msgid "Type the output wav name"
-msgstr ""
+msgstr "ഉണ്ടാക്കേണ്ട ശബ്ദരേഖയുടെ പേരു് കൊടുക്കുക"
 
 #: sbw2/sbw.py:162
 msgid "{} deleted"
-msgstr ""
+msgstr "{} നീക്കംചെയ്തു"
 
 #: sbw2/sbw.py:203
 msgid "new line {}"
-msgstr ""
+msgstr "പുതിയ വരി {}"
 
 #: sbw2/sbw.py:210
 msgid "new line"
-msgstr ""
+msgstr "പുതിയ വരി"
 
 #: sbw2/sbw.py:212
 msgid "Limit exceeded {}"
-msgstr ""
+msgstr "{} പരിധി കവിഞ്ഞു"
 
 #: sbw2/sbw.py:236
 msgid "Tab at {}"
-msgstr ""
+msgstr "{}-ൽ വിടവിടൂ"
 
 #: sbw2/sbw.py:257
 msgid "{} loaded"
-msgstr ""
+msgstr "{} സജ്ജമാക്കി"
 
 #: sbw2/sbw.py:316
 msgid "Selection Deleted"
-msgstr ""
+msgstr "തെരഞ്ഞെടുത്തു് നീക്കംചെയ്തു"
 
 #: sbw2/sbw.py:322 sbw2/sbw.py:326
 msgid "{} at {} deleted"
-msgstr ""
+msgstr "{} ലെ {} നീക്കംചെയ്തു"
 
 #: sbw2/sbw.py:357
 msgid "List opened"
-msgstr ""
+msgstr "ശീട്ടു് തുറന്നു"
 
 #: sbw2/sbw.py:370
 msgid "Abbreviation saved"
-msgstr ""
+msgstr "ചുരുക്കെഴുത്തു് സൂക്ഷിച്ചു"
 
 #: sbw2/sbw.py:379
 msgid "Abbreviation restored"
-msgstr ""
+msgstr "ചുരുക്കെഴുത്തു് പുനഃസ്ഥാപിച്ചു"
 
 #: share/pyshared/sbw2/ui/about.glade:7
 msgid "About Sharada Braille Writer 2.0"
-msgstr ""
+msgstr "ശാരദ ബ്രൈലി എഴുത്തിടം - 2.0 -നെ കുറിച്ചു്"
 
 #: share/pyshared/sbw2/ui/about.glade:12
 msgid ""
 "Copyright © 2011-2013 Nalin.x.Linux\n"
 "Supported by S-C-E-R-T and Keltron"
 msgstr ""
+"പകർപ്പവകാശം © 2011-2013 നളിൻ.എക്സ്.ലിനക്സ്\n"
+"പിന്തുണ എസ്.സി.ഇ.ആർ.ടി, കെൽട്രോൺ"
 
 #: share/pyshared/sbw2/ui/about.glade:14
 msgid ""
@@ -161,227 +164,231 @@ msgid ""
 "respectively.\n"
 " By pressing f and s together will produce letter k and like."
 msgstr ""
+"ആറു കട്ടകളുപയോഗിച്ചു് അച്ചടി രേഖകളുണ്ടാക്കാനുള്ള സംവിധആനമാണു് ശാരദ ബ്രൈലി എഴുത്തിടം.\n"
+" f, d, s, j, k, l എന്നീ കട്ടകൾ യഥാക്രമം 1 2 3 4 5 6 എന്നീ ബ്രൈലി കുത്തുകളെ "
+"സൂചിപ്പിക്കുന്നു.\n"
+" f s എന്നീ കട്ടകൾ ഒരുമിച്ചു് അമർത്തിയാൽ k ചേർക്കാം. ഇതേപോലെ മറ്റു് അകേഷരങ്ങളും ചേർക്കാം"
 
 #: share/pyshared/sbw2/ui/about.glade:18
 msgid "Visit S-B-W Home page"
-msgstr ""
+msgstr "ശാരദാ ബ്രൈലി എഴുത്തിടം പൂമുഖം കാണൂ"
 
 #: share/pyshared/sbw2/ui/about.glade:19
 msgid "GPL3"
-msgstr ""
+msgstr "സ്വതന്ത്ര പകർപ്പനുമതി ജി.പി.എൽ-3"
 
 #: share/pyshared/sbw2/ui/about.glade:54
 msgid "Dedicated to my mother Sharada"
-msgstr ""
+msgstr "എന്റെ അമ്മ ശാരദയ്ക്കായ് സമർപ്പിക്കുന്നു"
 
 #: share/pyshared/sbw2/ui/audio_converter.glade:34
 msgid "Audio-Converter"
-msgstr ""
+msgstr "ശബ്ദമാറ്റി"
 
 #: share/pyshared/sbw2/ui/audio_converter.glade:46
 msgid "<span size = 'xx-large'><b>Lios-Audio-Converter</b></span>"
-msgstr ""
+msgstr "<span size = 'xx-large'><b>ലിയോസു് ശബ്ദമാറ്റി</b></span>"
 
 #: share/pyshared/sbw2/ui/audio_converter.glade:57
-msgid "<b><span size = 'large'>Speed (Word Per Minute)   : </span></b>"
-msgstr ""
+msgid "<b><span size = 'large'>Speed (Word Per Minute) : </span></b>"
+msgstr "<b><span size = 'large'>വേഗത (നിമിഷം പ്രതി വാക്കുകൾ) : </span></b>"
 
 #: share/pyshared/sbw2/ui/audio_converter.glade:88
-msgid "<b><span size = 'large'>Pitch    : </span></b>"
-msgstr ""
+msgid "<b><span size = 'large'>Pitch : </span></b>"
+msgstr "സ്വരാവൃത്തി"
 
 #: share/pyshared/sbw2/ui/audio_converter.glade:103
-msgid "<b><span size = 'large'>Split time(Per Minute)  : </span></b>"
-msgstr ""
+msgid "<b><span size = 'large'>Split time(Per Minute) : </span></b>"
+msgstr "<b><span size = 'large'>നിമിഷം പ്രതി വേർതിരിക്കുക : </span></b>"
 
 #: share/pyshared/sbw2/ui/audio_converter.glade:166
 msgid "Convert"
-msgstr ""
+msgstr "മാറ്റിയെടുക്കൂ"
 
 #: share/pyshared/sbw2/ui/audio_converter.glade:181
 #: share/pyshared/sbw2/ui/find_and_replace.glade:108
 #: share/pyshared/sbw2/ui/Spell.glade:122
 msgid "Close"
-msgstr ""
+msgstr "അടക്കൂ"
 
 #: share/pyshared/sbw2/ui/audio_converter.glade:199
 msgid "<b><span size = 'large'>Language </span></b>"
-msgstr ""
+msgstr "<b><span size = 'large'>ഭാഷ </span></b>"
 
 #: share/pyshared/sbw2/ui/audio_converter.glade:214
 msgid "<b><span size = 'large'>Volume</span></b>"
-msgstr ""
+msgstr "<b><span size = 'large'>ശബ്ദം</span></b>"
 
 #: share/pyshared/sbw2/ui/find_and_replace.glade:8
 msgid "Lios-Find-&-Replace"
-msgstr ""
+msgstr "ലിയോസു് തിരഞ്ഞു് മാറ്റൂ"
 
 #: share/pyshared/sbw2/ui/find_and_replace.glade:20
 #: share/pyshared/sbw2/ui/find.glade:19
 msgid "Search for :"
-msgstr ""
+msgstr "ഇതിനായി തിരയൂ"
 
 #: share/pyshared/sbw2/ui/find_and_replace.glade:29
 msgid "Replace with :"
-msgstr ""
+msgstr "പകരം വെക്കേണ്ടതു് :"
 
 #: share/pyshared/sbw2/ui/find_and_replace.glade:90
 msgid "Replace"
-msgstr ""
+msgstr "പകരം വെക്കുക"
 
 #: share/pyshared/sbw2/ui/find_and_replace.glade:125
 msgid "Replace-All"
-msgstr ""
+msgstr "എല്ലാം മാറ്റിയെഴുതൂ"
 
 #: share/pyshared/sbw2/ui/find_and_replace.glade:178
 #: share/pyshared/sbw2/ui/find.glade:105
 msgid "context_label"
-msgstr ""
+msgstr "സാഹചര്യ പേരു്"
 
 #: share/pyshared/sbw2/ui/find.glade:82
 msgid "_Close"
-msgstr ""
+msgstr "അടക്കൂ"
 
 #: share/pyshared/sbw2/ui/Spell.glade:6
 msgid "Spell-Checker"
-msgstr ""
+msgstr "അക്ഷരപരിശോധക"
 
 #: share/pyshared/sbw2/ui/Spell.glade:21
 msgid "<b><span size = 'large'>Misspelled Word</span></b>"
-msgstr ""
+msgstr "<b><span size = 'large'>അക്ഷരത്തെറഅറുള്ള വാക്കു്</span></b>"
 
 #: share/pyshared/sbw2/ui/Spell.glade:49
 msgid "Change"
-msgstr ""
+msgstr "മാറ്റൂ"
 
 #: share/pyshared/sbw2/ui/Spell.glade:66
 msgid "Change-all"
-msgstr ""
+msgstr "എല്ലാം മാറ്റൂ"
 
 #: share/pyshared/sbw2/ui/Spell.glade:84
 msgid "Ignore"
-msgstr ""
+msgstr "അവഗണിക്കൂ"
 
 #: share/pyshared/sbw2/ui/Spell.glade:103
 msgid "Ignore-all"
-msgstr ""
+msgstr "എല്ലാം അവഗണിക്കൂ"
 
 #: share/pyshared/sbw2/ui/Spell.glade:160
 msgid "Delete"
-msgstr ""
+msgstr "നീക്കംചെയ്യൂ"
 
 #: share/pyshared/sbw2/ui/Spell.glade:180
 msgid "label"
-msgstr ""
+msgstr "പേരു്"
 
 #: share/pyshared/sbw2/ui/ui.glade:54
 msgid "Sharada Braille Writer 2.0"
-msgstr ""
+msgstr "ശാരദ ബ്രൈലി എഴുത്തിടം - 2.0"
 
 #: share/pyshared/sbw2/ui/ui.glade:73
 msgid "_File"
-msgstr ""
+msgstr "രേഖ"
 
 #: share/pyshared/sbw2/ui/ui.glade:105
 msgid "Append"
-msgstr ""
+msgstr "കൂട്ടിചേർക്കൂ"
 
 #: share/pyshared/sbw2/ui/ui.glade:116
 msgid "Punch"
-msgstr ""
+msgstr "ഇടിക്കുക"
 
 #: share/pyshared/sbw2/ui/ui.glade:176
 msgid "Edit"
-msgstr ""
+msgstr "തിരുത്തൂ"
 
 #: share/pyshared/sbw2/ui/ui.glade:184
 msgid "Cut"
-msgstr ""
+msgstr "മുറിക്കൂ"
 
 #: share/pyshared/sbw2/ui/ui.glade:232
 msgid "Go-to-line"
-msgstr ""
+msgstr "വരിയിലേക്കു് പോകൂ"
 
 #: share/pyshared/sbw2/ui/ui.glade:244
 msgid "Find"
-msgstr ""
+msgstr "കണ്ടെത്തൂ"
 
 #: share/pyshared/sbw2/ui/ui.glade:256
 msgid "Find & Replace"
-msgstr ""
+msgstr "കണ്ടെത്തി മാറ്റൂ"
 
 #: share/pyshared/sbw2/ui/ui.glade:275
 msgid "_Language"
-msgstr ""
+msgstr "ഭാഷ"
 
 #: share/pyshared/sbw2/ui/ui.glade:284
 msgid "Abbreviation"
-msgstr ""
+msgstr "ചുരുക്കെഴുത്തു്"
 
 #: share/pyshared/sbw2/ui/ui.glade:295 share/pyshared/sbw2/ui/ui.glade:439
 msgid "Open"
-msgstr ""
+msgstr "തുറക്കൂ"
 
 #: share/pyshared/sbw2/ui/ui.glade:317
 msgid "Restore"
-msgstr ""
+msgstr "പുനഃസ്ഥാപിക്കൂ"
 
 #: share/pyshared/sbw2/ui/ui.glade:332
 msgid "_Tools"
-msgstr ""
+msgstr "ഉപകരണങ്ങൾ"
 
 #: share/pyshared/sbw2/ui/ui.glade:370
 msgid "Help"
-msgstr ""
+msgstr "സഹായം"
 
 #: share/pyshared/sbw2/ui/ui.glade:389
 msgid "Readme"
-msgstr ""
+msgstr "ഇതു് വായിക്കൂ"
 
 #: share/pyshared/sbw2/ui/ui.glade:423
 msgid "New"
-msgstr ""
+msgstr "പുതിയ"
 
 #: share/pyshared/sbw2/ui/ui.glade:471
 msgid "Spell-Check"
-msgstr ""
+msgstr "അക്ഷരത്തെറ്റു് നോക്കുക "
 
 #: share/pyshared/sbw2/ui/ui.glade:487
 msgid "About"
-msgstr ""
+msgstr "ഇതിനെ കുറിച്ചു്"
 
 #: share/pyshared/sbw2/ui/ui.glade:503
 msgid "Quit"
-msgstr ""
+msgstr "മതിയാക്കുക"
 
 #: share/pyshared/sbw2/ui/ui.glade:523
 msgid "Line : "
-msgstr ""
+msgstr "വരി :"
 
 #: share/pyshared/sbw2/ui/ui.glade:548
 msgid "Welcome to SBW-2.0"
-msgstr ""
+msgstr "ശാരദ ബ്രൈലി എഴുത്തിടത്തിലേക്കു് സ്വാഗതം"
 
 #: share/pyshared/sbw2/ui/ui.glade:595
-msgid "Font   "
-msgstr ""
+msgid "Font "
+msgstr "അകേഷരരൂപങ്ങൾ"
 
 #: share/pyshared/sbw2/ui/ui.glade:637
-msgid "Color   "
-msgstr ""
+msgid "Color "
+msgstr "നിറം"
 
 #: share/pyshared/sbw2/ui/ui.glade:677
-msgid "Background Color   "
-msgstr ""
+msgid "Background Color "
+msgstr "പിൻനിറം"
 
 #: share/pyshared/sbw2/ui/ui.glade:717
-msgid "Line Limit   "
-msgstr ""
+msgid "Line Limit "
+msgstr "വരിയുടെ പരിധി"
 
 #: share/pyshared/sbw2/ui/ui.glade:754
 msgid "Simple Mode"
-msgstr ""
+msgstr "ലളിതമായ രീതി"
 
 #: share/pyshared/sbw2/ui/ui.glade:783
 msgid "Auto New Line"
-msgstr ""
+msgstr "സ്വയമേ പുതിയ വരി"
