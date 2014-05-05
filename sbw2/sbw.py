@@ -283,7 +283,7 @@ class writer(editor):
 	
 	def append_sub_map(self,filename,submap_number):
 		print("Loading sub map file for : %s with sn : %d " % (filename,submap_number))	
-		for line in open("%s/data/%s/%s"%(global_var.data_dir,self.language,filename),"r"):
+		for line in open("%s/data/%s/%s"%(global_var.data_dir,self.language,filename),"r",encoding='utf-8'):
 			if (line.split(" ")[0]) in self.map.keys():
 				self.map[line.split(" ")[0]].append(line.split(" ")[1][:-1])
 				if len(self.map[line.split(" ")[0]]) != submap_number:
