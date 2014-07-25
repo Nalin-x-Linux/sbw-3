@@ -17,6 +17,8 @@
 ###########################################################################
 import os
 import configparser
+import re
+
 
 from gi.repository import Gtk
 from gi.repository import Gdk
@@ -360,6 +362,7 @@ class writer(editor):
 		abbreviations = open("%s/data/%s/abbreviations.txt"%(global_var.data_dir,self.language),"w")
 		start, end = self.textbuffer.get_bounds()
 		text = self.textbuffer.get_text(start, end,False)
+		text = text.replace("\r","\n")
 		for line in text.split("\n"):
 			if (len(line.split("  ")) == 2):
 				abbreviations.write("%s\n"%(line))
@@ -377,6 +380,20 @@ class writer(editor):
 		abbreviations_default.close()
 		self.load_abbrivation();
 		self.label.set_text(_("Abbreviation restored"));
+
+	def expand_short_hand(self,widget):
+		try:
+			start,end = self.textbuffer.get_selection_bounds()
+		except ValueError:
+			start,end = self.textbuffer.get_bounds()
+		
+		text = self.textbuffer.get_text(start,end,False)
+		self.textbuffer.delete(start,end);
+		
+		for key in self.abbreviations.keys():
+			if key in text.split():
+				text = re.sub("(?<![\w\d])"+key+"(?![\w\d])",self.abbreviations[key],text)
+		self.textbuffer.insert(start,text)
 
 	def readme(self,wedget,data=None):
 		with open("{0}/data/%s/help.txt".format(global_var.data_dir,self.language)) as file:

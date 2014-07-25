@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.16.1 -->
 <interface>
-  <!-- interface-requires gtk+ 3.0 -->
+  <requires lib="gtk+" version="3.0"/>
   <object class="GtkAdjustment" id="adjustment_line_limit">
     <property name="lower">20</property>
     <property name="upper">200</property>
     <property name="value">80</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
+  </object>
+  <object class="GtkImage" id="image1">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-media-record</property>
+  </object>
+  <object class="GtkImage" id="image2">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-info</property>
+  </object>
+  <object class="GtkImage" id="image3">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-cut</property>
   </object>
   <object class="GtkImage" id="image4">
     <property name="visible">True</property>
@@ -33,22 +49,6 @@
     <property name="can_focus">False</property>
     <property name="stock">gtk-find-and-replace</property>
   </object>
-  <object class="GtkImage" id="image1">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-media-record</property>
-  </object>
-  <object class="GtkImage" id="image2">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-info</property>
-  </object>
-  <object class="GtkImage" id="image3">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-cut</property>
-  </object>
-  <object class="GtkTextBuffer" id="textbuffer"/>
   <object class="GtkWindow" id="window">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Sharada Braille Writer 2.0</property>
@@ -84,8 +84,8 @@
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <accelerator key="n" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                         <signal name="activate" handler="new" swapped="no"/>
+                        <accelerator key="n" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                       </object>
                     </child>
                     <child>
@@ -96,8 +96,8 @@
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <accelerator key="o" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                         <signal name="activate" handler="open" swapped="no"/>
+                        <accelerator key="o" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                       </object>
                     </child>
                     <child>
@@ -130,8 +130,8 @@
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <accelerator key="s" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                         <signal name="activate" handler="save" swapped="no"/>
+                        <accelerator key="s" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                       </object>
                     </child>
                     <child>
@@ -142,8 +142,8 @@
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <accelerator key="s" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_CONTROL_MASK"/>
                         <signal name="activate" handler="save_as" swapped="no"/>
+                        <accelerator key="s" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_CONTROL_MASK"/>
                       </object>
                     </child>
                     <child>
@@ -160,8 +160,8 @@
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <accelerator key="q" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                         <signal name="activate" handler="quit" swapped="no"/>
+                        <accelerator key="q" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                       </object>
                     </child>
                   </object>
@@ -187,8 +187,8 @@
                         <property name="can_focus">False</property>
                         <property name="image">image3</property>
                         <property name="use_stock">False</property>
-                        <accelerator key="x" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                         <signal name="activate" handler="cut" swapped="no"/>
+                        <accelerator key="x" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                       </object>
                     </child>
                     <child>
@@ -199,8 +199,8 @@
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <accelerator key="c" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                         <signal name="activate" handler="copy" swapped="no"/>
+                        <accelerator key="c" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                       </object>
                     </child>
                     <child>
@@ -211,8 +211,8 @@
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <accelerator key="v" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                         <signal name="activate" handler="paste" swapped="no"/>
+                        <accelerator key="v" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                       </object>
                     </child>
                     <child>
@@ -223,8 +223,8 @@
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <accelerator key="Delete" signal="activate"/>
                         <signal name="activate" handler="delete" swapped="no"/>
+                        <accelerator key="Delete" signal="activate"/>
                       </object>
                     </child>
                     <child>
@@ -235,8 +235,8 @@
                         <property name="can_focus">False</property>
                         <property name="image">image4</property>
                         <property name="use_stock">False</property>
-                        <accelerator key="i" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                         <signal name="activate" handler="go_to_line" swapped="no"/>
+                        <accelerator key="i" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                       </object>
                     </child>
                     <child>
@@ -247,8 +247,8 @@
                         <property name="can_focus">False</property>
                         <property name="image">image7</property>
                         <property name="use_stock">False</property>
-                        <accelerator key="f" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                         <signal name="activate" handler="find" swapped="no"/>
+                        <accelerator key="f" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                       </object>
                     </child>
                     <child>
@@ -259,8 +259,8 @@
                         <property name="can_focus">False</property>
                         <property name="image">image8</property>
                         <property name="use_stock">False</property>
-                        <accelerator key="f" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_CONTROL_MASK"/>
                         <signal name="activate" handler="find_and_replace" swapped="no"/>
+                        <accelerator key="f" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_CONTROL_MASK"/>
                       </object>
                     </child>
                   </object>
@@ -294,8 +294,8 @@
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Open</property>
                         <property name="use_underline">True</property>
-                        <accelerator key="o" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_MOD1_MASK"/>
                         <signal name="activate" handler="open_abbreviation" swapped="no"/>
+                        <accelerator key="o" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_MOD1_MASK"/>
                       </object>
                     </child>
                     <child>
@@ -305,8 +305,8 @@
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Save</property>
                         <property name="use_underline">True</property>
-                        <accelerator key="s" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_MOD1_MASK"/>
                         <signal name="activate" handler="save_abbreviation" swapped="no"/>
+                        <accelerator key="s" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_MOD1_MASK"/>
                       </object>
                     </child>
                     <child>
@@ -316,8 +316,18 @@
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Restore</property>
                         <property name="use_underline">True</property>
-                        <accelerator key="r" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_MOD1_MASK"/>
                         <signal name="activate" handler="restore_abbreviation" swapped="no"/>
+                        <accelerator key="r" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_MOD1_MASK"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkMenuItem" id="menuitem5">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Expand Short-Hand Text</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="expand_short_hand" swapped="no"/>
+                        <accelerator key="e" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_MOD1_MASK"/>
                       </object>
                     </child>
                   </object>
@@ -343,8 +353,8 @@
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <accelerator key="F7" signal="activate" modifiers="GDK_SHIFT_MASK"/>
                         <signal name="activate" handler="spell_check" swapped="no"/>
+                        <accelerator key="F7" signal="activate" modifiers="GDK_SHIFT_MASK"/>
                       </object>
                     </child>
                     <child>
@@ -419,7 +429,6 @@
                     <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="label" translatable="yes">New</property>
                     <property name="use_underline">True</property>
                     <property name="stock_id">gtk-new</property>
@@ -435,7 +444,6 @@
                     <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="label" translatable="yes">Open</property>
                     <property name="use_underline">True</property>
                     <property name="stock_id">gtk-open</property>
@@ -451,7 +459,6 @@
                     <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="label" translatable="yes">Save</property>
                     <property name="use_underline">True</property>
                     <property name="stock_id">gtk-save</property>
@@ -467,7 +474,6 @@
                     <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="label" translatable="yes">Spell-Check</property>
                     <property name="use_underline">True</property>
                     <property name="stock_id">gtk-spell-check</property>
@@ -483,7 +489,6 @@
                     <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="label" translatable="yes">About</property>
                     <property name="use_underline">True</property>
                     <property name="stock_id">gtk-about</property>
@@ -499,7 +504,6 @@
                     <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="label" translatable="yes">Quit</property>
                     <property name="use_underline">True</property>
                     <property name="stock_id">gtk-quit</property>
@@ -573,8 +577,8 @@
                 <property name="can_focus">True</property>
                 <property name="border_width">10</property>
                 <property name="editable">False</property>
-                <signal name="key-release-event" handler="key_released" swapped="no"/>
                 <signal name="key-press-event" handler="key_pressed" swapped="no"/>
+                <signal name="key-release-event" handler="key_released" swapped="no"/>
               </object>
             </child>
           </object>
@@ -608,7 +612,6 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="font">Sans 12</property>
                 <property name="preview_text"/>
                 <signal name="font-set" handler="font_set" swapped="no"/>
@@ -650,7 +653,6 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <signal name="color-set" handler="font_color_set" swapped="no"/>
               </object>
               <packing>
@@ -690,7 +692,6 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <signal name="color-set" handler="background_color_set" swapped="no"/>
               </object>
               <packing>
@@ -756,7 +757,6 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_action_appearance">False</property>
                 <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
                 <signal name="toggled" handler="simple_mode_checkbutton_toggled" swapped="no"/>
@@ -785,7 +785,6 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_action_appearance">False</property>
                 <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
                 <signal name="toggled" handler="checkbutton_auto_new_line_toggled" swapped="no"/>
@@ -806,4 +805,5 @@
       </object>
     </child>
   </object>
+  <object class="GtkTextBuffer" id="textbuffer"/>
 </interface>
