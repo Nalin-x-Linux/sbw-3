@@ -437,7 +437,7 @@ class writer(editor):
 		config.set('cfg', 'auto_new_line',str(self.auto_new_line))
 		with open('%s/.sbw_2_0.cfg'% global_var.home_dir , 'w') as configfile:
 			config.write(configfile)
-		self.quit(self,widget)
+		return self.quit(self,widget)
 		
 if __name__ == "__main__":
 	writer()
