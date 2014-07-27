@@ -1,4 +1,4 @@
-skl ing
+skl was
 d ea
 f a
 fd b
@@ -22,6 +22,7 @@ dsj s
 dsjk t
 fsl u
 fdsl v
+dsl ?
 djkl w
 fsjl x
 fsjkl y
@@ -30,6 +31,7 @@ fdsjl and
 fdskl of
 dsjl the
 dsjkl with
+fdsjkl for
 sk in
 ds bb
 dk cc
