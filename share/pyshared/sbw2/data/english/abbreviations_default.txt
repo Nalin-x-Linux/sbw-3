@@ -1,5 +1,6 @@
 ab  about
 abv  above
+er  we
 ac  according
 acc  account
 ack  acknowledge
@@ -37,8 +38,7 @@ dcv  deceive
 dcvg  deceiving
 dffc  difficult
 djl  now
-dk  is
-dkl  are
+dis  are
 dl  enough
 do  doctor
 e  every
@@ -54,7 +54,7 @@ ething  everything
 ewhere  everywhere
 f  from
 fd  food
-fdjkl  we
+er  we
 fr  friend
 frq  frequent
 fst  first
@@ -153,7 +153,7 @@ thr  three
 throughou  throughout
 ths  thus
 tk  took
-tm  tommorrow
+tm  tomorrow
 trn  turn
 trst  trust
 trth  truth
@@ -183,14 +183,11 @@ y  you
 yd  yesterday
 yr  your
 z  as
-dl  enough
-sjl  or
-sjkl  no
-sjk  me
-fdjkl  we
-djl  now
-dkl  are
-dk  is
+en  enough
+ing  or
+ble  no
+ar  me
+ow  now
 ab  about
 sd  said
 sch  such
@@ -218,4 +215,3 @@ pd  paid
 perh  perhaps
 themvs  themselves
 yrs  your's
-ea  is
