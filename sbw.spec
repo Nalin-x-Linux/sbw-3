@@ -20,15 +20,15 @@
 # yum install  rpm-build
 
 Name:           sharada_braille_writer
-Version:        2.1
+Version:        2.2
 Release:        0%{?dist}
 Epoch:          1
 Summary:        Sharada braille writer is a six key braille writer
 
 Group:          Applications/Editors
 License:        GPLv3+
-URL:            https://codeload.github.com/Nalin-x-Linux/sbw/zip/sharada_braille_writer-2.1.zip
-Source0:        https://codeload.github.com/Nalin-x-Linux/sbw/zip/sharada_braille_writer-2.1.zip
+URL:            https://codeload.github.com/Nalin-x-Linux/sbw/zip/sharada_braille_writer-2.2.zip
+Source0:        https://codeload.github.com/Nalin-x-Linux/sbw/zip/sharada_braille_writer-2.2.zip
 
 BuildArch:      noarch
 Requires:       espeak 
@@ -63,3 +63,8 @@ chmod -R 777 $RPM_BUILD_ROOT/%{_datadir}/pyshared/sbw2/data/
 %{_datadir}/applications/*
 %{_bindir}/*
 %{python3_sitelib}/sbw2-*
+%{_datadir}/locale-langpack/es/LC_MESSAGES/*
+%{_datadir}/locale-langpack/hi/LC_MESSAGES/*
+%{_datadir}/locale-langpack/kn/LC_MESSAGES/*
+%{_datadir}/locale-langpack/ml/LC_MESSAGES/*
+%{_datadir}/locale-langpack/ta/LC_MESSAGES/*
